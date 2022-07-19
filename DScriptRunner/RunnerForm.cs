@@ -25,7 +25,8 @@ namespace DScriptRunner
             var item = menuItem1.DropDownItems.Add("Config");
             item.Click += (object sender, EventArgs e) =>
             {
-                Process.Start("explorer.exe", $"{Environment.CurrentDirectory}\\{RunnerResources.ConfigFileName}");
+                var path = $"/select, \"{Environment.CurrentDirectory}\\{RunnerResources.ConfigFileName}\"";
+                Process.Start("explorer.exe", path);
             };
 
             var menuItem2 = new ToolStripMenuItem("Temp2");
