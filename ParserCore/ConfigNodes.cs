@@ -12,5 +12,7 @@
         public const string Scripts = "Scripts";
         public const string ScriptsGroup = "Group";
         public const string ScriptsScript = "Script";
+
+        public const string AttributeName = "name";
     }
 }
