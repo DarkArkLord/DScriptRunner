@@ -106,6 +106,7 @@ namespace ParserCore
         {
             var lines = code.Split('\n')
                 .Select(value => value.Trim())
+                .Where(value => !string.IsNullOrEmpty(value) && value.Length > 0)
                 .ToArray();
             return lines;
         }
