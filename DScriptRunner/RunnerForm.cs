@@ -1,10 +1,11 @@
 ﻿using Microsoft.Toolkit.Uwp.Notifications;
-using ParserCore;
-using ParserCore.Entities;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Forms;
+using RunnerCore;
+using RunnerCore.Entities;
+using RunnerCore.Parser;
 
 namespace DScriptRunner
 {
@@ -17,7 +18,7 @@ namespace DScriptRunner
         {
             appIcon = new NotifyIcon
             {
-                Icon = RunnerResources.AppIcon,
+                Icon = AppResources.AppIcon,
                 Visible = true,
             };
             LoadMenu();

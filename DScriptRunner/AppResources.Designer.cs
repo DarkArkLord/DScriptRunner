@@ -22,14 +22,14 @@ namespace DScriptRunner {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class RunnerResources {
+    internal class AppResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal RunnerResources() {
+        internal AppResources() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace DScriptRunner {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DScriptRunner.RunnerResources", typeof(RunnerResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DScriptRunner.AppResources", typeof(AppResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -67,60 +67,6 @@ namespace DScriptRunner {
             get {
                 object obj = ResourceManager.GetObject("AppIcon", resourceCulture);
                 return ((System.Drawing.Icon)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Конфигурация.
-        /// </summary>
-        internal static string ButtonConfig {
-            get {
-                return ResourceManager.GetString("ButtonConfig", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Выход.
-        /// </summary>
-        internal static string ButtonExit {
-            get {
-                return ResourceManager.GetString("ButtonExit", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Инфо.
-        /// </summary>
-        internal static string ButtonInfo {
-            get {
-                return ResourceManager.GetString("ButtonInfo", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на Перезагрузка.
-        /// </summary>
-        internal static string ButtonRefresh {
-            get {
-                return ResourceManager.GetString("ButtonRefresh", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на ScriptsConfig.xml.
-        /// </summary>
-        internal static string ConfigFileName {
-            get {
-                return ResourceManager.GetString("ConfigFileName", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Ищет локализованную строку, похожую на temp.ps1.
-        /// </summary>
-        internal static string TempScriptFileName {
-            get {
-                return ResourceManager.GetString("TempScriptFileName", resourceCulture);
             }
         }
     }

@@ -12,28 +12,22 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\ParserCore\ParserCore.csproj" />
+    <ProjectReference Include="..\RunnerCore\RunnerCore.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="RunnerResources.Designer.cs">
+    <Compile Update="AppResources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>RunnerResources.resx</DependentUpon>
+      <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="RunnerResources.resx">
+    <EmbeddedResource Update="AppResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>RunnerResources.Designer.cs</LastGenOutput>
+      <LastGenOutput>AppResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="ScriptsConfig.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
 
 </Project>
