@@ -59,13 +59,13 @@ namespace DScriptRunner
 
         private void ConfigureCommonMenuItems(ContextMenuStrip menu)
         {
-            var configItem = menu.Items.Add("Config");
+            var configItem = menu.Items.Add(RunnerResources.ButtonConfig);
             configItem.Click += (object sender, EventArgs e) => OpenConfigFile();
 
-            var refreshItem = menu.Items.Add("Refresh");
+            var refreshItem = menu.Items.Add(RunnerResources.ButtonRefresh);
             refreshItem.Click += (object sender, EventArgs e) => LoadMenu();
 
-            var exitItem = menu.Items.Add("Exit");
+            var exitItem = menu.Items.Add(RunnerResources.ButtonExit);
             exitItem.Click += (object sender, EventArgs e) => Exit();
         }
 
