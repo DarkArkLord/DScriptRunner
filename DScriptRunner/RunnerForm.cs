@@ -23,11 +23,7 @@ namespace DScriptRunner
         {
             var menuItem1 = new ToolStripMenuItem("Temp1");
             var item = menuItem1.DropDownItems.Add("Config");
-            item.Click += (object sender, EventArgs e) =>
-            {
-                var path = $"/select, \"{Environment.CurrentDirectory}\\{RunnerResources.ConfigFileName}\"";
-                Process.Start("explorer.exe", path);
-            };
+            item.Click += OpenConfigFile;
 
             var menuItem2 = new ToolStripMenuItem("Temp2");
             menuItem1.DropDownItems.Add(menuItem2);
@@ -44,6 +40,12 @@ namespace DScriptRunner
         {
             appIcon.Visible = false;
             Application.Exit();
+        }
+
+        private void OpenConfigFile(object sender, EventArgs e)
+        {
+            var path = $"/select, \"{Environment.CurrentDirectory}\\{RunnerResources.ConfigFileName}\"";
+            Process.Start("explorer.exe", path);
         }
     }
 }
