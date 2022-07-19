@@ -1,12 +1,11 @@
-﻿using RunnerCore;
-using RunnerCore.Entities;
+﻿using RunnerCore.Entities;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace DScriptRunner
+namespace RunnerCore
 {
     class ScriptExecutor
     {
