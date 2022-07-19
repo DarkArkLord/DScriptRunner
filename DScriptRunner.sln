@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DScriptRunner", "DScriptRunner\DScriptRunner.csproj", "{E89B326F-F9D2-4DC1-9975-A18C99312BE6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RunnerCore", "RunnerCore\RunnerCore.csproj", "{368F9C2E-6292-4953-8845-2266608D1C94}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RunnerCore", "RunnerCore\RunnerCore.csproj", "{368F9C2E-6292-4953-8845-2266608D1C94}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AppCore3d1", "AppCore3d1\AppCore3d1.csproj", "{B4A230A9-6729-463D-A2D5-13A6FD8AC5F2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{368F9C2E-6292-4953-8845-2266608D1C94}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{368F9C2E-6292-4953-8845-2266608D1C94}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{368F9C2E-6292-4953-8845-2266608D1C94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4A230A9-6729-463D-A2D5-13A6FD8AC5F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4A230A9-6729-463D-A2D5-13A6FD8AC5F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4A230A9-6729-463D-A2D5-13A6FD8AC5F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4A230A9-6729-463D-A2D5-13A6FD8AC5F2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
