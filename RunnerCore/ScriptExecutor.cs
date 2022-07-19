@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace RunnerCore
 {
-    class ScriptExecutor
+    public class ScriptExecutor
     {
         private readonly ScriptLines currentScript;
         private readonly RunnerConfig config;
