@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
@@ -6,6 +6,21 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications" Version="7.1.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="RunnerResources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>RunnerResources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="RunnerResources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>RunnerResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
 
 </Project>
