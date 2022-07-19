@@ -1,4 +1,5 @@
-﻿using ParserCore;
+﻿using Microsoft.Toolkit.Uwp.Notifications;
+using ParserCore;
 using ParserCore.Entities;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,7 @@ namespace DScriptRunner
             appConfig = ConfigParser.ParseXml(xml);
             var menuContainer = PrepareContextMenu(appConfig);
             appIcon.ContextMenuStrip = menuContainer;
+            SayHello();
         }
 
         private ContextMenuStrip PrepareContextMenu(RunnerConfig config)
@@ -79,6 +81,18 @@ namespace DScriptRunner
         {
             appIcon.Visible = false;
             Application.Exit();
+        }
+
+        private void SayHello()
+        {
+            if (appConfig is null || string.IsNullOrEmpty(appConfig.HelloMessage))
+            {
+                return;
+            }
+
+            var builder = new ToastContentBuilder();
+            builder.AddText(appConfig.HelloMessage)
+                .Show();
         }
     }
 }
