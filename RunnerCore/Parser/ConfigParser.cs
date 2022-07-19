@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
-using RunnerCore.Parser.Entities;
+using RunnerCore.Entities;
 
 namespace RunnerCore.Parser
 {

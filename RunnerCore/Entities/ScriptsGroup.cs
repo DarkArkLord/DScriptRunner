@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace RunnerCore.Parser.Entities
+namespace RunnerCore.Entities
 {
     public class ScriptsGroup : ScriptInfo
     {
