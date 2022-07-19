@@ -1,4 +1,4 @@
-﻿namespace DScriptRunner
+﻿namespace ParserCore
 {
     static class ConfigNodes
     {
