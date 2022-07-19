@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace DScriptRunner
 {
-    class RunnerForm : Form
+    class RunnerForm : ApplicationContext
     {
         private NotifyIcon appIcon;
 
