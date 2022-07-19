@@ -78,5 +78,14 @@ namespace DScriptRunner {
                 return ResourceManager.GetString("ConfigFileName", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на temp.ps1.
+        /// </summary>
+        internal static string TempScriptFileName {
+            get {
+                return ResourceManager.GetString("TempScriptFileName", resourceCulture);
+            }
+        }
     }
 }

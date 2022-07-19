@@ -40,7 +40,8 @@ namespace DScriptRunner
                 if (info.IsScript)
                 {
                     var item = items.Add(info.Title);
-                    //
+                    var executor = new ScriptExecutor(info as ScriptLines, appConfig);
+                    item.Click += executor.ExecuteAsTask;
                 }
                 else
                 {
