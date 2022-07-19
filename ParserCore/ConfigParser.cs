@@ -3,7 +3,7 @@ using System.Xml.Linq;
 
 namespace ParserCore
 {
-    static class ConfigParser
+    public static class ConfigParser
     {
         public static XDocument ReadXml(string path)
         {

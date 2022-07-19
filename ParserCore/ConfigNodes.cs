@@ -1,6 +1,6 @@
 ﻿namespace ParserCore
 {
-    static class ConfigNodes
+    public static class ConfigNodes
     {
         public const string Main = "Config";
 
