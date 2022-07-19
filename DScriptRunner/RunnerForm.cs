@@ -1,20 +1,22 @@
 ﻿using ParserCore;
+using ParserCore.Entities;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Forms;
-using ParserCore.Entities;
 
 namespace DScriptRunner
 {
     class RunnerForm : ApplicationContext
     {
         private readonly NotifyIcon appIcon;
+        private readonly RunnerConfig appConfig;
 
         public RunnerForm()
         {
             var xml = ConfigParser.ReadXml(RunnerResources.ConfigFileName);
-            var config = ConfigParser.ParseXml(xml);
-            var menuContainer = PrepareMenu(config);
+            appConfig = ConfigParser.ParseXml(xml);
+            var menuContainer = PrepareMenu(appConfig);
             appIcon = new NotifyIcon
             {
                 Icon = RunnerResources.AppIcon,
@@ -25,20 +27,28 @@ namespace DScriptRunner
 
         private ContextMenuStrip PrepareMenu(RunnerConfig config)
         {
-            var menuItem1 = new ToolStripMenuItem("Temp1");
-            var item = menuItem1.DropDownItems.Add("Config");
-            item.Click += OpenConfigFile;
-
-            var menuItem2 = new ToolStripMenuItem("Temp2");
-            menuItem1.DropDownItems.Add(menuItem2);
-
-            item = menuItem2.DropDownItems.Add("Exit");
-            item.Click += Exit;
-
             var contextMenu = new ContextMenuStrip();
-            contextMenu.Items.Add(menuItem1);
+            ConfigureMenu(contextMenu.Items, config.Content);
             ConfigureCommonMenuItems(contextMenu);
             return contextMenu;
+        }
+
+        private void ConfigureMenu(ToolStripItemCollection items, IReadOnlyList<ScriptInfo> config)
+        {
+            foreach (var info in config)
+            {
+                if (info.IsScript)
+                {
+                    var item = items.Add(info.Title);
+                    //
+                }
+                else
+                {
+                    var item = new ToolStripMenuItem(info.Title);
+                    ConfigureMenu(item.DropDownItems, info.Content);
+                    items.Add(item);
+                }
+            }
         }
 
         private void ConfigureCommonMenuItems(ContextMenuStrip menu)
