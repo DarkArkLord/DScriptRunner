@@ -10,22 +10,27 @@ namespace DScriptRunner
     class RunnerForm : ApplicationContext
     {
         private readonly NotifyIcon appIcon;
-        private readonly RunnerConfig appConfig;
+        private RunnerConfig appConfig;
 
         public RunnerForm()
         {
-            var xml = ConfigParser.ReadXml(RunnerResources.ConfigFileName);
-            appConfig = ConfigParser.ParseXml(xml);
-            var menuContainer = PrepareMenu(appConfig);
             appIcon = new NotifyIcon
             {
                 Icon = RunnerResources.AppIcon,
                 Visible = true,
-                ContextMenuStrip = menuContainer,
             };
+            LoadMenu();
         }
 
-        private ContextMenuStrip PrepareMenu(RunnerConfig config)
+        private void LoadMenu()
+        {
+            var xml = ConfigParser.ReadXml(RunnerResources.ConfigFileName);
+            appConfig = ConfigParser.ParseXml(xml);
+            var menuContainer = PrepareContextMenu(appConfig);
+            appIcon.ContextMenuStrip = menuContainer;
+        }
+
+        private ContextMenuStrip PrepareContextMenu(RunnerConfig config)
         {
             var contextMenu = new ContextMenuStrip();
             ConfigureMenu(contextMenu.Items, config.Content);
@@ -55,19 +60,22 @@ namespace DScriptRunner
         private void ConfigureCommonMenuItems(ContextMenuStrip menu)
         {
             var configItem = menu.Items.Add("Config");
-            configItem.Click += OpenConfigFile;
+            configItem.Click += (object sender, EventArgs e) => OpenConfigFile();
+
+            var refreshItem = menu.Items.Add("Refresh");
+            refreshItem.Click += (object sender, EventArgs e) => LoadMenu();
 
             var exitItem = menu.Items.Add("Exit");
-            exitItem.Click += Exit;
+            exitItem.Click += (object sender, EventArgs e) => Exit();
         }
 
-        private void OpenConfigFile(object sender, EventArgs e)
+        private void OpenConfigFile()
         {
             var path = $"/select, \"{Environment.CurrentDirectory}\\{RunnerResources.ConfigFileName}\"";
             Process.Start("explorer.exe", path);
         }
 
-        private void Exit(object sender, EventArgs e)
+        private void Exit()
         {
             appIcon.Visible = false;
             Application.Exit();
