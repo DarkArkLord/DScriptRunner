@@ -22,7 +22,7 @@ namespace RunnerCore {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class RunnerResources {
+    public class RunnerResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace RunnerCore {
         ///   Возвращает кэшированный экземпляр ResourceManager, использованный этим классом.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("RunnerCore.RunnerResources", typeof(RunnerResources).Assembly);
@@ -51,7 +51,7 @@ namespace RunnerCore {
         ///   обращений к ресурсу с помощью этого класса ресурса со строгой типизацией.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace RunnerCore {
         /// <summary>
         ///   Ищет локализованную строку, похожую на Конфигурация.
         /// </summary>
-        internal static string ButtonConfig {
+        public static string ButtonConfig {
             get {
                 return ResourceManager.GetString("ButtonConfig", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace RunnerCore {
         /// <summary>
         ///   Ищет локализованную строку, похожую на Выход.
         /// </summary>
-        internal static string ButtonExit {
+        public static string ButtonExit {
             get {
                 return ResourceManager.GetString("ButtonExit", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace RunnerCore {
         /// <summary>
         ///   Ищет локализованную строку, похожую на Инфо.
         /// </summary>
-        internal static string ButtonInfo {
+        public static string ButtonInfo {
             get {
                 return ResourceManager.GetString("ButtonInfo", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace RunnerCore {
         /// <summary>
         ///   Ищет локализованную строку, похожую на Перезагрузка.
         /// </summary>
-        internal static string ButtonRefresh {
+        public static string ButtonRefresh {
             get {
                 return ResourceManager.GetString("ButtonRefresh", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace RunnerCore {
         /// <summary>
         ///   Ищет локализованную строку, похожую на ScriptsConfig.xml.
         /// </summary>
-        internal static string ConfigFileName {
+        public static string ConfigFileName {
             get {
                 return ResourceManager.GetString("ConfigFileName", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace RunnerCore {
         /// <summary>
         ///   Ищет локализованную строку, похожую на temp.ps1.
         /// </summary>
-        internal static string TempScriptFileName {
+        public static string TempScriptFileName {
             get {
                 return ResourceManager.GetString("TempScriptFileName", resourceCulture);
             }

@@ -14,7 +14,7 @@
 
   <ItemGroup>
     <EmbeddedResource Update="RunnerResources.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>RunnerResources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
