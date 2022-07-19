@@ -16,12 +16,15 @@
         <Group name="Test1">
             <Group name="Test2">
                 <Script name="Test2-Script">
-                    Write-Host "TEST 2"
+                    Write-Host "TEST 3"
                 </Script>
             </Group>
             <Script name="Test1-Script">
-                Write-Host "TEST 1"
+                Write-Host "TEST 2"
             </Script>
         </Group>
+        <Script name="Test-Script">
+            Write-Host "TEST 1"
+        </Script>
     </Scripts>
 </Config>
