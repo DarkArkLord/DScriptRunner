@@ -69,5 +69,14 @@ namespace DScriptRunner {
                 return ((System.Drawing.Icon)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на ScriptsConfig.xml.
+        /// </summary>
+        internal static string ConfigFileName {
+            get {
+                return ResourceManager.GetString("ConfigFileName", resourceCulture);
+            }
+        }
     }
 }
