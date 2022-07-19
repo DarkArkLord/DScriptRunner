@@ -1,6 +1,8 @@
-﻿using System;
+﻿using ParserCore;
+using System;
 using System.Diagnostics;
 using System.Windows.Forms;
+using ParserCore.Entities;
 
 namespace DScriptRunner
 {
@@ -10,8 +12,10 @@ namespace DScriptRunner
 
         public RunnerForm()
         {
-            var menuContainer = PrepareMenu();
-            appIcon = new NotifyIcon()
+            var xml = ConfigParser.ReadXml(RunnerResources.ConfigFileName);
+            var config = ConfigParser.ParseXml(xml);
+            var menuContainer = PrepareMenu(config);
+            appIcon = new NotifyIcon
             {
                 Icon = RunnerResources.AppIcon,
                 Visible = true,
@@ -19,7 +23,7 @@ namespace DScriptRunner
             };
         }
 
-        private ContextMenuStrip PrepareMenu()
+        private ContextMenuStrip PrepareMenu(RunnerConfig config)
         {
             var menuItem1 = new ToolStripMenuItem("Temp1");
             var item = menuItem1.DropDownItems.Add("Config");
@@ -32,20 +36,30 @@ namespace DScriptRunner
             item.Click += Exit;
 
             var contextMenu = new ContextMenuStrip();
-            contextMenu.Items.Add(menuItem1); 
+            contextMenu.Items.Add(menuItem1);
+            ConfigureCommonMenuItems(contextMenu);
             return contextMenu;
         }
 
-        private void Exit(object sender, EventArgs e)
+        private void ConfigureCommonMenuItems(ContextMenuStrip menu)
         {
-            appIcon.Visible = false;
-            Application.Exit();
+            var configItem = menu.Items.Add("Config");
+            configItem.Click += OpenConfigFile;
+
+            var exitItem = menu.Items.Add("Exit");
+            exitItem.Click += Exit;
         }
 
         private void OpenConfigFile(object sender, EventArgs e)
         {
             var path = $"/select, \"{Environment.CurrentDirectory}\\{RunnerResources.ConfigFileName}\"";
             Process.Start("explorer.exe", path);
+        }
+
+        private void Exit(object sender, EventArgs e)
+        {
+            appIcon.Visible = false;
+            Application.Exit();
         }
     }
 }

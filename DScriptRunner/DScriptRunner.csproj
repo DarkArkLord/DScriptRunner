@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ParserCore\ParserCore.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Compile Update="RunnerResources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
