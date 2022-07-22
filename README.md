@@ -10,3 +10,9 @@
 # DScriptRunner
 
 DScriptRunner - это tray only приложение, предназначенное быть удобной точкой входа для запуска пользовательских PowerShell скриптов.
+
+# Технологии 
+
+- Основа проекта - .Net Core 3.1
+- Всплывающие уведомления - Microsoft.Toolkit.Uwp.Notifications v7.1.2
+- пользовательские скрипты - PowerShell
