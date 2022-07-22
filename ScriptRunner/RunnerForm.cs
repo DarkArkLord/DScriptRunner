@@ -68,6 +68,9 @@ namespace ScriptRunner
             var refreshItem = menu.Items.Add(AppResources.ButtonRefresh);
             refreshItem.Click += (object sender, EventArgs e) => LoadMenu();
 
+            var infoItem = menu.Items.Add(AppResources.ButtonInfo);
+            infoItem.Click += (object sender, EventArgs e) => Info();
+
             var exitItem = menu.Items.Add(AppResources.ButtonExit);
             exitItem.Click += (object sender, EventArgs e) => Exit();
         }
@@ -76,6 +79,11 @@ namespace ScriptRunner
         {
             var path = $"/select, \"{Environment.CurrentDirectory}\\{AppResources.ConfigFileName}\"";
             Process.Start("explorer.exe", path);
+        }
+
+        private void Info()
+        {
+            MessageBox.Show("Hello!");
         }
 
         private void Exit()
