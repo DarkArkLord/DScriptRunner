@@ -26,7 +26,7 @@ namespace ScriptRunner
 
         private void LoadMenu()
         {
-            var xml = ConfigParser.ReadXml(RunnerResources.ConfigFileName);
+            var xml = ConfigParser.ReadXml(AppResources.ConfigFileName);
             appConfig = ConfigParser.ParseXml(xml);
             var menuContainer = PrepareContextMenu(appConfig);
             appIcon.ContextMenuStrip = menuContainer;
@@ -62,20 +62,33 @@ namespace ScriptRunner
 
         private void ConfigureCommonMenuItems(ContextMenuStrip menu)
         {
-            var configItem = menu.Items.Add(RunnerResources.ButtonConfig);
+            var configItem = menu.Items.Add(AppResources.ButtonConfig);
             configItem.Click += (object sender, EventArgs e) => OpenConfigFile();
 
-            var refreshItem = menu.Items.Add(RunnerResources.ButtonRefresh);
+            var refreshItem = menu.Items.Add(AppResources.ButtonRefresh);
             refreshItem.Click += (object sender, EventArgs e) => LoadMenu();
 
-            var exitItem = menu.Items.Add(RunnerResources.ButtonExit);
+            var infoItem = menu.Items.Add(AppResources.ButtonInfo);
+            infoItem.Click += (object sender, EventArgs e) => Info();
+
+            var exitItem = menu.Items.Add(AppResources.ButtonExit);
             exitItem.Click += (object sender, EventArgs e) => Exit();
         }
 
         private void OpenConfigFile()
         {
-            var path = $"/select, \"{Environment.CurrentDirectory}\\{RunnerResources.ConfigFileName}\"";
+            var path = $"/select, \"{Environment.CurrentDirectory}\\{AppResources.ConfigFileName}\"";
             Process.Start("explorer.exe", path);
+        }
+
+        private void Info()
+        {
+            var text = "О программе DScriptRunner\n" +
+                       "Разработчик: Алексей Петров aka DarkNessLord\n" +
+                       "https://github.com/ShadowOfFallenLord/DScriptRunner \n" +
+                       "2022 год \n" +
+                       "Версия 0.3.0";
+            MessageBox.Show(text, "О программе");
         }
 
         private void Exit()

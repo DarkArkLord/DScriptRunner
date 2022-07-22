@@ -69,5 +69,50 @@ namespace ScriptRunner {
                 return ((System.Drawing.Icon)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Конфигурация.
+        /// </summary>
+        internal static string ButtonConfig {
+            get {
+                return ResourceManager.GetString("ButtonConfig", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Выход.
+        /// </summary>
+        internal static string ButtonExit {
+            get {
+                return ResourceManager.GetString("ButtonExit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Инфо.
+        /// </summary>
+        internal static string ButtonInfo {
+            get {
+                return ResourceManager.GetString("ButtonInfo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на Перезагрузка.
+        /// </summary>
+        internal static string ButtonRefresh {
+            get {
+                return ResourceManager.GetString("ButtonRefresh", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на ScriptsConfig.xml.
+        /// </summary>
+        internal static string ConfigFileName {
+            get {
+                return ResourceManager.GetString("ConfigFileName", resourceCulture);
+            }
+        }
     }
 }
