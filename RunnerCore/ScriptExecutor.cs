@@ -26,11 +26,12 @@ namespace RunnerCore
         public void Execute(object sender, EventArgs e)
         {
             var script = ConcatScript();
-            File.WriteAllLines(RunnerResources.TempScriptFileName, script);
-            var path = Path.Combine(Directory.GetCurrentDirectory(), RunnerResources.TempScriptFileName);
+            var fileName = GiveFileName();
+            var path = Path.Combine(Directory.GetCurrentDirectory(), fileName);
+            File.WriteAllLines(path, script);
             var process = Process.Start("powershell", path);
             process.WaitForExit();
-            File.Delete(RunnerResources.TempScriptFileName);
+            File.Delete(path);
         }
 
         private IReadOnlyList<string> ConcatScript()
@@ -49,6 +50,11 @@ namespace RunnerCore
                 script.AddRange(config.AfterScriptLines);
             }
             return script;
+        }
+
+        private string GiveFileName()
+        {
+            return "temp.ps1";
         }
     }
 }
