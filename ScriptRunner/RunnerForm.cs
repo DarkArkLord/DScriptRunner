@@ -74,7 +74,7 @@ namespace ScriptRunner
 
         private void OpenConfigFile()
         {
-            var path = $"/select, \"{Environment.CurrentDirectory}\\{RunnerResources.ConfigFileName}\"";
+            var path = $"/select, \"{Environment.CurrentDirectory}\\{AppResources.ConfigFileName}\"";
             Process.Start("explorer.exe", path);
         }
 
