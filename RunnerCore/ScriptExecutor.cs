@@ -9,6 +9,8 @@ namespace RunnerCore
 {
     public class ScriptExecutor
     {
+        private static readonly List<bool> usedFiles = new List<bool>();
+
         private readonly ScriptLines currentScript;
         private readonly RunnerConfig config;
 
@@ -26,11 +28,14 @@ namespace RunnerCore
         public void Execute(object sender, EventArgs e)
         {
             var script = ConcatScript();
-            File.WriteAllLines(RunnerResources.TempScriptFileName, script);
-            var path = Path.Combine(Directory.GetCurrentDirectory(), RunnerResources.TempScriptFileName);
+            var fileIndex = GetFileIndex();
+            var fileName = GetFileName(fileIndex);
+            var path = Path.Combine(Directory.GetCurrentDirectory(), fileName);
+            File.WriteAllLines(path, script);
             var process = Process.Start("powershell", path);
             process.WaitForExit();
-            File.Delete(RunnerResources.TempScriptFileName);
+            File.Delete(path);
+            FreeFileIndex(fileIndex);
         }
 
         private IReadOnlyList<string> ConcatScript()
@@ -49,6 +54,38 @@ namespace RunnerCore
                 script.AddRange(config.AfterScriptLines);
             }
             return script;
+        }
+
+        private int GetFileIndex()
+        {
+            lock (usedFiles)
+            {
+                for (int i = 0; i < usedFiles.Count; i++)
+                {
+                    if (!usedFiles[i])
+                    {
+                        usedFiles[i] = true;
+                        return i;
+                    }
+                }
+
+                var newIndex = usedFiles.Count;
+                usedFiles.Add(true);
+                return newIndex;
+            }
+        }
+
+        private string GetFileName(int index)
+        {
+            return $"temp{index}.ps1";
+        }
+
+        private void FreeFileIndex(int index)
+        {
+            lock (usedFiles)
+            {
+                usedFiles[index] = false;
+            }
         }
     }
 }
