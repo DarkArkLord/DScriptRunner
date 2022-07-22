@@ -132,7 +132,4 @@
   <data name="ConfigFileName" xml:space="preserve">
     <value>ScriptsConfig.xml</value>
   </data>
-  <data name="TempScriptFileName" xml:space="preserve">
-    <value>temp.ps1</value>
-  </data>
 </root>
