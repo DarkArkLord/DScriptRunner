@@ -62,13 +62,13 @@ namespace ScriptRunner
 
         private void ConfigureCommonMenuItems(ContextMenuStrip menu)
         {
-            var configItem = menu.Items.Add(RunnerResources.ButtonConfig);
+            var configItem = menu.Items.Add(AppResources.ButtonConfig);
             configItem.Click += (object sender, EventArgs e) => OpenConfigFile();
 
-            var refreshItem = menu.Items.Add(RunnerResources.ButtonRefresh);
+            var refreshItem = menu.Items.Add(AppResources.ButtonRefresh);
             refreshItem.Click += (object sender, EventArgs e) => LoadMenu();
 
-            var exitItem = menu.Items.Add(RunnerResources.ButtonExit);
+            var exitItem = menu.Items.Add(AppResources.ButtonExit);
             exitItem.Click += (object sender, EventArgs e) => Exit();
         }
 
