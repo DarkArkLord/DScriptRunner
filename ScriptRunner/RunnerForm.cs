@@ -26,7 +26,7 @@ namespace ScriptRunner
 
         private void LoadMenu()
         {
-            var xml = ConfigParser.ReadXml(RunnerResources.ConfigFileName);
+            var xml = ConfigParser.ReadXml(AppResources.ConfigFileName);
             appConfig = ConfigParser.ParseXml(xml);
             var menuContainer = PrepareContextMenu(appConfig);
             appIcon.ContextMenuStrip = menuContainer;

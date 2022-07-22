@@ -105,5 +105,14 @@ namespace ScriptRunner {
                 return ResourceManager.GetString("ButtonRefresh", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на ScriptsConfig.xml.
+        /// </summary>
+        internal static string ConfigFileName {
+            get {
+                return ResourceManager.GetString("ConfigFileName", resourceCulture);
+            }
+        }
     }
 }

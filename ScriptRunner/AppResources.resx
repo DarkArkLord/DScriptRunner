@@ -133,4 +133,7 @@
   <data name="ButtonRefresh" xml:space="preserve">
     <value>Перезагрузка</value>
   </data>
+  <data name="ConfigFileName" xml:space="preserve">
+    <value>ScriptsConfig.xml</value>
+  </data>
 </root>
