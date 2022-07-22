@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Forms;
 
-namespace AppCore3d1
+namespace ScriptRunner
 {
     class RunnerForm : ApplicationContext
     {

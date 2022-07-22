@@ -1,7 +1,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace AppCore3d1
+namespace ScriptRunner
 {
     static class Program
     {
