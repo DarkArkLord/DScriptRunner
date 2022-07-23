@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Config>
+    <Hello>
+        Привет! Я готов к работе.
+    </Hello>
     <Global>
-        <Hello>
-            Привет! Я готов к работе.
-        </Hello>
         <Before>
             Write-Host "START"
         </Before>

@@ -1,9 +1,9 @@
-﻿using System;
+﻿using RunnerCore.Entities;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
-using RunnerCore.Entities;
 
 namespace RunnerCore.Parser
 {
@@ -26,6 +26,9 @@ namespace RunnerCore.Parser
 
             var result = new RunnerConfig();
 
+            var helloMessage = config.Element(ConfigNodes.Hello)?.Value ?? string.Empty;
+            result.HelloMessage = helloMessage.Trim();
+
             ParseGlobal(config, result);
 
             var xmlScriptSection = config.Element(ConfigNodes.Scripts);
@@ -47,9 +50,6 @@ namespace RunnerCore.Parser
             {
                 return;
             }
-
-            var helloMessage = global.Element(ConfigNodes.GlobalHello)?.Value ?? string.Empty;
-            config.HelloMessage = helloMessage.Trim();
 
             var beforeText = global.Element(ConfigNodes.GlobalBefore)?.Value ?? string.Empty;
             var beforeLines = ParseCode(beforeText);
