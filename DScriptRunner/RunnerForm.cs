@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Forms;
 
-namespace ScriptRunner
+namespace DScriptRunner
 {
     class RunnerForm : ApplicationContext
     {
@@ -87,7 +87,7 @@ namespace ScriptRunner
                        "Разработчик: Алексей Петров aka DarkNessLord\n" +
                        "https://github.com/ShadowOfFallenLord/DScriptRunner \n" +
                        "2022 год \n" +
-                       "Версия 1.0.0";
+                       "Версия 1.0.1";
             MessageBox.Show(text, "О программе");
         }
 

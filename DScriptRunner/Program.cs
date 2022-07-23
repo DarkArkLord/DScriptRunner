@@ -1,7 +1,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace ScriptRunner
+namespace DScriptRunner
 {
     static class Program
     {
