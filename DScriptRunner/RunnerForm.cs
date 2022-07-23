@@ -26,19 +26,20 @@ namespace DScriptRunner
 
         private void LoadMenu()
         {
-            var xml = ConfigParser.ReadXml(AppResources.ConfigFileName);
-            appConfig = ConfigParser.ParseXml(xml);
-            var menuContainer = PrepareContextMenu(appConfig);
-            appIcon.ContextMenuStrip = menuContainer;
-            SayHello();
-        }
-
-        private ContextMenuStrip PrepareContextMenu(RunnerConfig config)
-        {
             var contextMenu = new ContextMenuStrip();
-            ConfigureMenu(contextMenu.Items, config.Content);
+            try
+            {
+                var xml = ConfigParser.ReadXml(AppResources.ConfigFileName);
+                appConfig = ConfigParser.ParseXml(xml);
+                ConfigureMenu(contextMenu.Items, appConfig.Content);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.Message, AppResources.LoadErrorCaption);
+            }
             ConfigureCommonMenuItems(contextMenu);
-            return contextMenu;
+            appIcon.ContextMenuStrip = contextMenu;
+            SayHello();
         }
 
         private void ConfigureMenu(ToolStripItemCollection items, IReadOnlyList<ScriptInfo> config)
@@ -87,7 +88,7 @@ namespace DScriptRunner
                        "Разработчик: Алексей Петров aka DarkNessLord\n" +
                        "https://github.com/ShadowOfFallenLord/DScriptRunner \n" +
                        "2022 год \n" +
-                       "Версия 1.0.2";
+                       "Версия 1.1.0";
             MessageBox.Show(text, "О программе");
         }
 

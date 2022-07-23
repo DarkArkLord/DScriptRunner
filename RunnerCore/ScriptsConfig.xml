@@ -1,29 +1,37 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <Config>
-    <Global>
-        <Hello>
-            Привет! Я готов к работе.
-        </Hello>
-        <Before>
-            Write-Host "START"
-        </Before>
-        <After>
-            Write-Host "END"
-            pause
-        </After>
-    </Global>
+    <Hello>
+        Привет! Я готов к работе.
+    </Hello>
+    <Environments>
+        <Environment name="test">
+            <Before>
+                Write-Host "START"
+            </Before>
+            <After>
+                Write-Host "END"
+                pause
+            </After>
+        </Environment>
+        <Environment name="pause-after-end">
+            <After>
+                pause
+            </After>
+        </Environment>
+    </Environments>
     <Scripts>
         <Group name="Test1">
             <Group name="Test2">
                 <Script name="Test2-Script">
                     Write-Host "TEST 3"
+                    pause
                 </Script>
             </Group>
-            <Script name="Test1-Script">
+            <Script name="Test1-Script" env="pause-after-end">
                 Write-Host "TEST 2"
             </Script>
         </Group>
-        <Script name="Test-Script">
+        <Script name="Test-Script" env="test">
             Write-Host "TEST 1"
         </Script>
     </Scripts>
