@@ -3,15 +3,6 @@
     <Hello>
         Привет! Я готов к работе.
     </Hello>
-    <Global>
-        <Before>
-            Write-Host "START"
-        </Before>
-        <After>
-            Write-Host "END"
-            pause
-        </After>
-    </Global>
     <Environments>
         <Environment name="test">
             <Before>
