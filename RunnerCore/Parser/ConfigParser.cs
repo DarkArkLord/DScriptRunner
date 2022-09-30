@@ -58,6 +58,10 @@ namespace RunnerCore.Parser
                 {
                     throw new Exception($"В секции {environment.Name} не обнаружен аттрибут {ConfigNodes.AttributeName}");
                 }
+                if (config.Environments.ContainsKey(name))
+                {
+                    throw new Exception($"Среда {name} уже определена");
+                }
 
                 var beforeText = environment.Element(ConfigNodes.EnvironmentBefore)?.Value ?? string.Empty;
                 var beforeLines = ParseCode(beforeText);
