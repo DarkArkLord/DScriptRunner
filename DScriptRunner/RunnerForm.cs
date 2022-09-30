@@ -26,11 +26,20 @@ namespace DScriptRunner
 
         private void LoadMenu()
         {
-            var xml = ConfigParser.ReadXml(AppResources.ConfigFileName);
-            appConfig = ConfigParser.ParseXml(xml);
-            var menuContainer = PrepareContextMenu(appConfig);
-            appIcon.ContextMenuStrip = menuContainer;
-            SayHello();
+            try
+            {
+                var xml = ConfigParser.ReadXml(AppResources.ConfigFileName);
+                appConfig = ConfigParser.ParseXml(xml);
+                var menuContainer = PrepareContextMenu(appConfig);
+                appIcon.ContextMenuStrip = menuContainer;
+                SayHello();
+            }
+            catch (Exception e)
+            {
+                var builder = new ToastContentBuilder();
+                builder.AddText(e.Message)
+                    .Show();
+            }
         }
 
         private ContextMenuStrip PrepareContextMenu(RunnerConfig config)
