@@ -36,7 +36,7 @@ namespace DScriptRunner
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message, "DScriptRunner: Ошибка при загрузке конфигурации.");
+                MessageBox.Show(e.Message, AppResources.LeadErrorMessage);
             }
         }
 
