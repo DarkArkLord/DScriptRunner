@@ -114,5 +114,14 @@ namespace DScriptRunner {
                 return ResourceManager.GetString("ConfigFileName", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Ищет локализованную строку, похожую на DScriptRunner: Ошибка при загрузке конфигурации.
+        /// </summary>
+        internal static string LoadErrorCaption {
+            get {
+                return ResourceManager.GetString("LoadErrorCaption", resourceCulture);
+            }
+        }
     }
 }

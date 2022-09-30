@@ -1,9 +1,9 @@
-﻿using System;
+﻿using RunnerCore.Entities;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
-using RunnerCore.Entities;
 
 namespace RunnerCore.Parser
 {
@@ -26,7 +26,10 @@ namespace RunnerCore.Parser
 
             var result = new RunnerConfig();
 
-            ParseGlobal(config, result);
+            var helloMessage = config.Element(ConfigNodes.Hello)?.Value ?? string.Empty;
+            result.HelloMessage = helloMessage.Trim();
+
+            ParseEnvironments(config, result);
 
             var xmlScriptSection = config.Element(ConfigNodes.Scripts);
             if (xmlScriptSection is null)
@@ -40,24 +43,35 @@ namespace RunnerCore.Parser
             return result;
         }
 
-        private static void ParseGlobal(XElement xml, RunnerConfig config)
+        private static void ParseEnvironments(XElement xml, RunnerConfig config)
         {
-            var global = xml.Element(ConfigNodes.Global);
-            if (global is null)
+            var environmentSection = xml.Element(ConfigNodes.Environments);
+            if (environmentSection is null)
             {
                 return;
             }
 
-            var helloMessage = global.Element(ConfigNodes.GlobalHello)?.Value ?? string.Empty;
-            config.HelloMessage = helloMessage.Trim();
+            foreach (var environment in environmentSection.Elements(ConfigNodes.Environment))
+            {
+                var name = environment.Attribute(ConfigNodes.AttributeName)?.Value;
+                if (name is null)
+                {
+                    throw new Exception($"В секции {environment.Name} не обнаружен аттрибут {ConfigNodes.AttributeName}");
+                }
+                if (config.Environments.ContainsKey(name))
+                {
+                    throw new Exception($"Среда {name} уже определена");
+                }
 
-            var beforeText = global.Element(ConfigNodes.GlobalBefore)?.Value ?? string.Empty;
-            var beforeLines = ParseCode(beforeText);
-            config.BeforeScriptLines = beforeLines;
+                var beforeText = environment.Element(ConfigNodes.EnvironmentBefore)?.Value ?? string.Empty;
+                var beforeLines = ParseCode(beforeText);
 
-            var afterText = global.Element(ConfigNodes.GlobalAfter)?.Value ?? string.Empty;
-            var afterLines = ParseCode(afterText);
-            config.AfterScriptLines = afterLines;
+                var afterText = environment.Element(ConfigNodes.EnvironmentAfter)?.Value ?? string.Empty;
+                var afterLines = ParseCode(afterText);
+
+                var envConf = (beforeLines, afterLines);
+                config.Environments.Add(name, envConf);
+            }
         }
 
         private static IReadOnlyList<ScriptInfo> ParseScriptSection(XElement xml)
@@ -75,9 +89,11 @@ namespace RunnerCore.Parser
                     }
 
                     var nodeName = nodeNameAttr.Value;
+                    var nodeEnv = node.Attribute(ConfigNodes.AttributeEnvironment)?.Value ?? string.Empty;
+                    // Exception для сред, которые не были определены?
                     var nodeText = node.Value;
                     var nodeLines = ParseCode(nodeText);
-                    var scriptInfo = new ScriptLines(nodeName, nodeLines);
+                    var scriptInfo = new ScriptLines(nodeName, nodeEnv, nodeLines);
                     result.Add(scriptInfo);
                 }
                 else if (node.Name == ConfigNodes.ScriptsGroup)
