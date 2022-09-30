@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace RunnerCore
@@ -40,19 +41,15 @@ namespace RunnerCore
 
         private IReadOnlyList<string> ConcatScript()
         {
-            var script = new List<string>();
-            if (config.BeforeScriptLines != null)
-            {
-                script.AddRange(config.BeforeScriptLines);
-            }
-            if (currentScript.ScriptLines != null)
-            {
-                script.AddRange(currentScript.ScriptLines);
-            }
-            if (config.AfterScriptLines != null)
-            {
-                script.AddRange(config.AfterScriptLines);
-            }
+            var (beforeLines, afterLines) = config.Environments.ContainsKey(currentScript.Environment)
+                ? config.Environments[currentScript.Environment]
+                : (Array.Empty<string>(), Array.Empty<string>());
+
+            var script = beforeLines
+                .Concat(currentScript.ScriptLines)
+                .Concat(afterLines)
+                .ToArray();
+
             return script;
         }
 
