@@ -86,6 +86,7 @@ namespace RunnerCore.Parser
 
                     var nodeName = nodeNameAttr.Value;
                     var nodeEnv = node.Attribute(ConfigNodes.AttributeEnvironment)?.Value ?? string.Empty;
+                    // Exception для сред, которые не были определены?
                     var nodeText = node.Value;
                     var nodeLines = ParseCode(nodeText);
                     var scriptInfo = new ScriptLines(nodeName, nodeEnv, nodeLines);
