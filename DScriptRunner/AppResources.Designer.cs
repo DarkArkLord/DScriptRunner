@@ -116,7 +116,7 @@ namespace DScriptRunner {
         }
         
         /// <summary>
-        ///   Ищет локализованную строку, похожую на DScriptRunner: Ошибка при загрузке конфигурации..
+        ///   Ищет локализованную строку, похожую на DScriptRunner: Ошибка при загрузке конфигурации.
         /// </summary>
         internal static string LoadErrorCaption {
             get {
