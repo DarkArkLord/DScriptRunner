@@ -41,7 +41,8 @@ namespace RunnerCore
 
         private IReadOnlyList<string> ConcatScript()
         {
-            var (beforeLines, afterLines) = config.Environments.ContainsKey(currentScript.Environment)
+            var hasEnvironment = currentScript.Environment.Length > 0 && config.Environments.ContainsKey(currentScript.Environment);
+            var (beforeLines, afterLines) = hasEnvironment
                 ? config.Environments[currentScript.Environment]
                 : (Array.Empty<string>(), Array.Empty<string>());
 
