@@ -36,9 +36,7 @@ namespace DScriptRunner
             }
             catch (Exception e)
             {
-                var builder = new ToastContentBuilder();
-                builder.AddText(e.Message)
-                    .Show();
+                MessageBox.Show(e.Message, "DScriptRunner: Ошибка при загрузке конфигурации.");
             }
         }
 
