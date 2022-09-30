@@ -26,26 +26,20 @@ namespace DScriptRunner
 
         private void LoadMenu()
         {
+            var contextMenu = new ContextMenuStrip();
             try
             {
                 var xml = ConfigParser.ReadXml(AppResources.ConfigFileName);
                 appConfig = ConfigParser.ParseXml(xml);
-                var menuContainer = PrepareContextMenu(appConfig);
-                appIcon.ContextMenuStrip = menuContainer;
-                SayHello();
+                ConfigureMenu(contextMenu.Items, appConfig.Content);
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.Message, AppResources.LoadErrorCaption);
             }
-        }
-
-        private ContextMenuStrip PrepareContextMenu(RunnerConfig config)
-        {
-            var contextMenu = new ContextMenuStrip();
-            ConfigureMenu(contextMenu.Items, config.Content);
             ConfigureCommonMenuItems(contextMenu);
-            return contextMenu;
+            appIcon.ContextMenuStrip = contextMenu;
+            SayHello();
         }
 
         private void ConfigureMenu(ToolStripItemCollection items, IReadOnlyList<ScriptInfo> config)
