@@ -118,9 +118,9 @@ namespace DScriptRunner {
         /// <summary>
         ///   Ищет локализованную строку, похожую на DScriptRunner: Ошибка при загрузке конфигурации..
         /// </summary>
-        internal static string LoadErrorMessage {
+        internal static string LoadErrorCaption {
             get {
-                return ResourceManager.GetString("LoadErrorMessage", resourceCulture);
+                return ResourceManager.GetString("LoadErrorCaption", resourceCulture);
             }
         }
     }

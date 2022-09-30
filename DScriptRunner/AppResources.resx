@@ -136,7 +136,7 @@
   <data name="ConfigFileName" xml:space="preserve">
     <value>ScriptsConfig.xml</value>
   </data>
-  <data name="LoadErrorMessage" xml:space="preserve">
+  <data name="LoadErrorCaption" xml:space="preserve">
     <value>DScriptRunner: Ошибка при загрузке конфигурации.</value>
   </data>
 </root>
