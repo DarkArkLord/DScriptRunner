@@ -36,7 +36,7 @@ namespace DScriptRunner
             }
             catch (Exception e)
             {
-                MessageBox.Show(e.Message, AppResources.LeadErrorMessage);
+                MessageBox.Show(e.Message, AppResources.LoadErrorMessage);
             }
         }
 
