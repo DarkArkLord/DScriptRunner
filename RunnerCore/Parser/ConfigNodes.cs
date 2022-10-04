@@ -17,5 +17,6 @@
 
         public const string AttributeName = "name";
         public const string AttributeEnvironment = "env";
+        public const string AttributeHidden = "hidden";
     }
 }

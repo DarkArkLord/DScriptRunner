@@ -80,6 +80,12 @@ namespace RunnerCore.Parser
             var childs = xml.Elements();
             foreach (var node in childs)
             {
+                var isNodeVisible = node.Attribute(ConfigNodes.AttributeHidden) is null;
+                if (!isNodeVisible)
+                {
+                    continue;
+                }
+
                 if (node.Name == ConfigNodes.ScriptsScript)
                 {
                     var nodeNameAttr = node.Attribute(ConfigNodes.AttributeName);
