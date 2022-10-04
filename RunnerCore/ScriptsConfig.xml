@@ -22,7 +22,7 @@
     <Scripts>
         <Group name="Test1">
             <Group name="Test2">
-                <Script name="Test3-Script" hidden="">
+                <Script name="Test2-HiddenScript" hidden="">
                     Write-Host "TEST 4 hidden"
                     pause
                 </Script>
