@@ -68,6 +68,10 @@ DScriptRunner - это tray only приложение, предназначен�
     <Scripts>
         <Group name="Test1">
             <Group name="Test2">
+                <Script name="Test2-HiddenScript" hidden="">
+                    Write-Host "TEST 4 hidden"
+                    pause
+                </Script>
                 <Script name="Test2-Script">
                     Write-Host "TEST 3"
                     pause
@@ -95,6 +99,7 @@ DScriptRunner - это tray only приложение, предназначен�
             Write-Host "TEST 3"
             pause
             ```
+        - Скрипт `Test2-HiddenScript` не будет отображаться и обрабатываться, т.к. он скрыт
     - Скрипт `Test1-Script` с содержанием:
         ```powershell
         Write-Host "TEST 2"
