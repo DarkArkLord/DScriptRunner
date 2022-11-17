@@ -29,7 +29,7 @@ namespace RunnerCore.Parser
             var helloMessage = config.Element(ConfigNodes.Hello)?.Value ?? string.Empty;
             result.HelloMessage = helloMessage.Trim();
 
-            ParseEnvironments(config, result);
+            ParseScriptElements(config, result);
 
             var xmlScriptSection = config.Element(ConfigNodes.Scripts);
             if (xmlScriptSection is null)
@@ -37,44 +37,40 @@ namespace RunnerCore.Parser
                 throw new Exception($"Секция {ConfigNodes.Scripts} не обнаружена");
             }
 
-            var scriptSection = ParseScriptSection(xmlScriptSection);
+            var scriptSection = ParseScriptSection(xmlScriptSection, result);
             result.Content = scriptSection;
 
             return result;
         }
 
-        private static void ParseEnvironments(XElement xml, RunnerConfig config)
+        private static void ParseScriptElements(XElement xml, RunnerConfig config)
         {
-            var environmentSection = xml.Element(ConfigNodes.Environments);
-            if (environmentSection is null)
+            var scriptElementsSection = xml.Element(ConfigNodes.ScriptElements);
+            if (scriptElementsSection is null)
             {
                 return;
             }
 
-            foreach (var environment in environmentSection.Elements(ConfigNodes.Environment))
+            foreach (var element in scriptElementsSection.Elements(ConfigNodes.ScriptElement))
             {
-                var name = environment.Attribute(ConfigNodes.AttributeName)?.Value;
-                if (name is null)
+                var name = GetNodeName(element);
+                if (config.ScriptElements.ContainsKey(name))
                 {
-                    throw new Exception($"В секции {environment.Name} не обнаружен аттрибут {ConfigNodes.AttributeName}");
-                }
-                if (config.Environments.ContainsKey(name))
-                {
-                    throw new Exception($"Среда {name} уже определена");
+                    throw new Exception($"Скриптовая вставка {name} уже определена");
                 }
 
-                var beforeText = environment.Element(ConfigNodes.EnvironmentBefore)?.Value ?? string.Empty;
-                var beforeLines = ParseCode(beforeText);
+                var scriptText = element.Value ?? string.Empty;
+                var scriptLines = ParseCode(scriptText);
+                if (scriptLines.Count < 1)
+                {
+                    throw new Exception($"Скриптовая вставка {name} пуста");
+                }
 
-                var afterText = environment.Element(ConfigNodes.EnvironmentAfter)?.Value ?? string.Empty;
-                var afterLines = ParseCode(afterText);
-
-                var envConf = (beforeLines, afterLines);
-                config.Environments.Add(name, envConf);
+                config.ScriptElements.Add(name, scriptLines);
             }
         }
 
-        private static IReadOnlyList<ScriptInfo> ParseScriptSection(XElement xml)
+        private static IReadOnlyList<ScriptInfo> ParseScriptSection(XElement xml, RunnerConfig config)
         {
             var result = new List<ScriptInfo>();
             var childs = xml.Elements();
@@ -86,34 +82,54 @@ namespace RunnerCore.Parser
                     continue;
                 }
 
-                if (node.Name == ConfigNodes.ScriptsScript)
+                if (node.Name == ConfigNodes.ScriptsGroup)
                 {
-                    var nodeNameAttr = node.Attribute(ConfigNodes.AttributeName);
-                    if (nodeNameAttr is null)
-                    {
-                        throw new Exception($"В секции {node.Name} не обнаружен аттрибут {ConfigNodes.AttributeName}");
-                    }
-
-                    var nodeName = nodeNameAttr.Value;
-                    var nodeEnv = node.Attribute(ConfigNodes.AttributeEnvironment)?.Value ?? string.Empty;
-                    // Exception для сред, которые не были определены?
-                    var nodeText = node.Value;
-                    var nodeLines = ParseCode(nodeText);
-                    var scriptInfo = new ScriptLines(nodeName, nodeEnv, nodeLines);
-                    result.Add(scriptInfo);
-                }
-                else if (node.Name == ConfigNodes.ScriptsGroup)
-                {
-                    var nodeNameAttr = node.Attribute(ConfigNodes.AttributeName);
-                    if (nodeNameAttr is null)
-                    {
-                        throw new Exception($"В секции {node.Name} не обнаружен аттрибут {ConfigNodes.AttributeName}");
-                    }
-
-                    var nodeName = nodeNameAttr.Value;
-                    var nodeContent = ParseScriptSection(node);
+                    var nodeName = GetNodeName(node);
+                    var nodeContent = ParseScriptSection(node, config);
                     var scriptGroup = new ScriptsGroup(nodeName, nodeContent);
                     result.Add(scriptGroup);
+                }
+                else if (node.Name == ConfigNodes.ScriptsScript)
+                {
+                    var nodeName = GetNodeName(node);
+
+                    var scriptLines = new List<string>();
+                    foreach (var innerNode in node.Elements())
+                    {
+                        if (innerNode.Name == ConfigNodes.ScriptText)
+                        {
+                            var nodeText = innerNode.Value;
+                            var nodeLines = ParseCode(nodeText);
+                            if (nodeLines.Count < 1)
+                            {
+                                throw new Exception($"В скрипте {nodeName} есть пустая дочерняя секция {ConfigNodes.ScriptText}");
+                            }
+
+                            scriptLines.AddRange(nodeLines);
+                        }
+                        else if (innerNode.Name == ConfigNodes.ScriptElement)
+                        {
+                            var insertName = GetNodeName(innerNode);
+                            if (!config.ScriptElements.ContainsKey(insertName))
+                            {
+                                throw new Exception($"Скриптовая вставка {insertName} не найдена");
+                            }
+                            var nodeLines = config.ScriptElements[insertName];
+                            scriptLines.AddRange(nodeLines);
+                        }
+                        else
+                        {
+                            throw new Exception($"Обнаруженна секция с неизвестным тегом {innerNode.Name}");
+                        }
+                    }
+
+                    if (scriptLines.Count < 1)
+                    {
+                        throw new Exception($"В скрипте {nodeName} не содержится исполняемого кода. Добавьте дочернюю секцию {ConfigNodes.ScriptText} или {ConfigNodes.ScriptElement}");
+                    }
+
+                    var scriptInfo = new ScriptLines(nodeName, scriptLines);
+                    result.Add(scriptInfo);
                 }
                 else
                 {
@@ -122,6 +138,16 @@ namespace RunnerCore.Parser
             }
 
             return result;
+        }
+
+        private static string GetNodeName(XElement xml)
+        {
+            var nodeName = xml.Attribute(ConfigNodes.AttributeName)?.Value;
+            if (nodeName is null)
+            {
+                throw new Exception($"В секции {xml.Name} не обнаружен аттрибут {ConfigNodes.AttributeName}");
+            }
+            return nodeName;
         }
 
         private static IReadOnlyList<string> ParseCode(string code)

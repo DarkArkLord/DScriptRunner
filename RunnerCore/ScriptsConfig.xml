@@ -3,40 +3,49 @@
     <Hello>
         Привет! Я готов к работе.
     </Hello>
-    <Environments>
-        <Environment name="test">
-            <Before>
-                Write-Host "START"
-            </Before>
-            <After>
-                Write-Host "END"
-                pause
-            </After>
-        </Environment>
-        <Environment name="pause-after-end">
-            <After>
-                pause
-            </After>
-        </Environment>
-    </Environments>
+    <ScriptElements>
+        <ScriptElement name="start-text">
+            Write-Host "START"
+        </ScriptElement>
+        <ScriptElement name="end-text">
+            Write-Host "END"
+        </ScriptElement>
+        <ScriptElement name="pause-after-end">
+            pause
+        </ScriptElement>
+    </ScriptElements>
     <Scripts>
         <Group name="Test1">
             <Group name="Test2">
                 <Script name="Test2-HiddenScript" hidden="">
-                    Write-Host "TEST 4 hidden"
-                    pause
+                    <ScriptText>
+                        Write-Host "TEST 4 hidden"
+                        pause
+                    </ScriptText>
                 </Script>
                 <Script name="Test2-Script">
-                    Write-Host "TEST 3"
-                    pause
+                    <ScriptText>
+                        Write-Host "TEST 3"
+                        pause
+                    </ScriptText>
                 </Script>
             </Group>
-            <Script name="Test1-Script" env="pause-after-end">
-                Write-Host "TEST 2"
+            <Script name="Test1-Script">
+                <ScriptText>
+                    Write-Host "TEST 2"
+                </ScriptText>
+                <ScriptElement name="pause-after-end" />
             </Script>
         </Group>
-        <Script name="Test-Script" env="test">
-            Write-Host "TEST 1"
+        <Script name="Test-Script">
+            <ScriptElement name="start-text" />
+            <ScriptText>
+                Write-Host "TEST 1"
+            </ScriptText>
+            <ScriptElement name="end-text" />
+            <ScriptText>
+                pause
+            </ScriptText>
         </Script>
     </Scripts>
 </Config>

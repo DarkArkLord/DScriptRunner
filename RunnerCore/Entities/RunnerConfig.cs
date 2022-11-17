@@ -6,7 +6,7 @@ namespace RunnerCore.Entities
     public class RunnerConfig
     {
         public string HelloMessage { get; set; } = string.Empty;
-        public Dictionary<string, (IReadOnlyList<string> BeforeLines, IReadOnlyList<string> AfterLines)> Environments { get; set; } = new Dictionary<string, (IReadOnlyList<string> BeforeLines, IReadOnlyList<string> AfterLines)>();
+        public Dictionary<string, IReadOnlyList<string>> ScriptElements { get; set; } = new Dictionary<string, IReadOnlyList<string>>();
         public IReadOnlyList<ScriptInfo> Content { get; set; } = Array.Empty<ScriptInfo>();
     }
 }
