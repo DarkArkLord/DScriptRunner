@@ -3,7 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace RunnerCore
@@ -28,30 +27,14 @@ namespace RunnerCore
 
         public void Execute(object sender, EventArgs e)
         {
-            var script = ConcatScript();
             var fileIndex = GetFileIndex();
             var fileName = GetFileName(fileIndex);
             var path = Path.Combine(Directory.GetCurrentDirectory(), fileName);
-            File.WriteAllLines(path, script);
+            File.WriteAllLines(path, currentScript.ScriptLines);
             var process = Process.Start("powershell", path);
             process.WaitForExit();
             File.Delete(path);
             FreeFileIndex(fileIndex);
-        }
-
-        private IReadOnlyList<string> ConcatScript()
-        {
-            var hasEnvironment = currentScript.Environment.Length > 0 && config.Environments.ContainsKey(currentScript.Environment);
-            var (beforeLines, afterLines) = hasEnvironment
-                ? config.Environments[currentScript.Environment]
-                : (Array.Empty<string>(), Array.Empty<string>());
-
-            var script = beforeLines
-                .Concat(currentScript.ScriptLines)
-                .Concat(afterLines)
-                .ToArray();
-
-            return script;
         }
 
         private int GetFileIndex()
