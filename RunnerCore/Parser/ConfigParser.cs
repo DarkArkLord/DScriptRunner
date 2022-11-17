@@ -63,7 +63,7 @@ namespace RunnerCore.Parser
                 var scriptLines = ParseCode(scriptText);
                 if (scriptLines.Count < 1)
                 {
-                    throw new Exception($"Скриптовая вставка {name} не содержит исполняемый код");
+                    throw new Exception($"Скриптовая вставка {name} пуста");
                 }
 
                 config.ScriptElements.Add(name, scriptLines);
@@ -100,6 +100,11 @@ namespace RunnerCore.Parser
                         {
                             var nodeText = innerNode.Value;
                             var nodeLines = ParseCode(nodeText);
+                            if (nodeLines.Count < 1)
+                            {
+                                throw new Exception($"В скрипте {nodeName} есть пустая дочерняя секция {ConfigNodes.ScriptText}");
+                            }
+
                             scriptLines.AddRange(nodeLines);
                         }
                         else if (innerNode.Name == ConfigNodes.ScriptElement)
