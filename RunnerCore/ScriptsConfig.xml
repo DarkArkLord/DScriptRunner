@@ -3,6 +3,31 @@
     <Hello>
         Привет! Я готов к работе.
     </Hello>
+
+    <Environments>
+        <Environment name="test-text">
+            <Before>
+                Write-Host "ENV BEFORE"
+            </Before>
+            <After>
+                Write-Host "ENV AFTER"
+            </After>
+        </Environment>
+        <Environment name="test-text-2">
+            <Before>
+                Write-Host "ENV BEFORE 2"
+            </Before>
+            <After>
+                Write-Host "ENV AFTER 2"
+            </After>
+        </Environment>
+        <Environment name="pause-after-end">
+            <After>
+                pause
+            </After>
+        </Environment>
+    </Environments>
+
     <ScriptElements>
         <ScriptElement name="start-text">
             Write-Host "START"
@@ -14,38 +39,70 @@
             pause
         </ScriptElement>
     </ScriptElements>
+
     <Scripts>
-        <Group name="Test1">
-            <Group name="Test2">
-                <Script name="Test2-HiddenScript" hidden="">
+        <Group name="Test-Group">
+            <Group name="Test-Inner-Group">
+                <Script name="Test-Inner-Group-Script">
                     <ScriptText>
-                        Write-Host "TEST 4 hidden"
-                        pause
-                    </ScriptText>
-                </Script>
-                <Script name="Test2-Script">
-                    <ScriptText>
-                        Write-Host "TEST 3"
+                        Write-Host "TEST Inner-Group-Script"
                         pause
                     </ScriptText>
                 </Script>
             </Group>
-            <Script name="Test1-Script">
+            <Script name="Test-Group-Script">
                 <ScriptText>
-                    Write-Host "TEST 2"
+                    Write-Host "TEST Group-Script"
+                    pause
                 </ScriptText>
-                <ScriptElement name="pause-after-end" />
             </Script>
         </Group>
+
         <Script name="Test-Script">
+            <ScriptText>
+                Write-Host "TEST script"
+                pause
+            </ScriptText>
+        </Script>
+
+        <Script name="Test-HiddenScript" hidden="">
+            <ScriptText>
+                Write-Host "TEST hidden"
+                pause
+            </ScriptText>
+        </Script>
+
+        <Script name="Test-Inserts">
             <ScriptElement name="start-text" />
             <ScriptText>
-                Write-Host "TEST 1"
+                Write-Host "TEST Inserts"
             </ScriptText>
             <ScriptElement name="end-text" />
             <ScriptText>
                 pause
             </ScriptText>
+        </Script>
+
+        <Group name="Test-Env-Group" env="pause-after-end">
+            <Group name="Test-Env-Inner-Group" env="test-text">
+                <Script name="Test-Env-Inner-Group-Script" env="test-text-2">
+                    <ScriptText>
+                        Write-Host "TEST Inner-Group-Script"
+                    </ScriptText>
+                </Script>
+            </Group>
+            <Script name="Test-Env-Group-Script" env="test-text">
+                <ScriptText>
+                    Write-Host "TEST Group-Script"
+                </ScriptText>
+            </Script>
+        </Group>
+
+        <Script name="Test-Environments" env="pause-after-end">
+            <ScriptText env="test-text">
+                Write-Host "TEST Environments"
+            </ScriptText>
+            <ScriptElement name="end-text" env="test-text" />
         </Script>
     </Scripts>
 </Config>
