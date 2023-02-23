@@ -11,8 +11,8 @@
         public const string EnvironmentBefore = "Before";
         public const string EnvironmentAfter = "After";
 
-        public const string ScriptElements = "ScriptElements";
-        public const string ScriptElement = "ScriptElement";
+        public const string ScriptInserts = "ScriptInserts";
+        public const string ScriptInsert = "ScriptInsert";
 
         public const string Scripts = "Scripts";
         public const string ScriptsGroup = "Group";

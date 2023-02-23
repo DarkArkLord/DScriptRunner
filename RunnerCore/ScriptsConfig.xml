@@ -28,17 +28,17 @@
         </Environment>
     </Environments>
 
-    <ScriptElements>
-        <ScriptElement name="start-text">
+    <ScriptInserts>
+        <ScriptInsert name="start-text">
             Write-Host "START"
-        </ScriptElement>
-        <ScriptElement name="end-text">
+        </ScriptInsert>
+        <ScriptInsert name="end-text">
             Write-Host "END"
-        </ScriptElement>
-        <ScriptElement name="pause-after-end">
+        </ScriptInsert>
+        <ScriptInsert name="pause-after-end">
             pause
-        </ScriptElement>
-    </ScriptElements>
+        </ScriptInsert>
+    </ScriptInserts>
 
     <Scripts>
         <Group name="Test-Group">
@@ -78,11 +78,11 @@
         </Script>
 
         <Script name="Test-Inserts">
-            <ScriptElement name="start-text" />
+            <ScriptInsert name="start-text" />
             <ScriptText>
                 Write-Host "TEST Inserts"
             </ScriptText>
-            <ScriptElement name="end-text" />
+            <ScriptInsert name="end-text" />
             <ScriptText>
                 pause
             </ScriptText>
@@ -107,7 +107,7 @@
             <ScriptText env="test-text">
                 Write-Host "TEST Environments"
             </ScriptText>
-            <ScriptElement name="end-text" env="test-text" />
+            <ScriptInsert name="end-text" env="test-text" />
         </Script>
     </Scripts>
 </Config>
