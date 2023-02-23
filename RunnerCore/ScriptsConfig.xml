@@ -59,8 +59,13 @@
         </Group>
 
         <Script name="Test-Script">
+            Write-Host "TEST script"
+            pause
+        </Script>
+
+        <Script name="Test-Script-2">
             <ScriptText>
-                Write-Host "TEST script"
+                Write-Host "TEST script 2"
                 pause
             </ScriptText>
         </Script>
