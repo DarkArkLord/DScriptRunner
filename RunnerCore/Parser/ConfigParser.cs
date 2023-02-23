@@ -92,16 +92,16 @@ namespace RunnerCore.Parser
 
         private static void ParseScriptElements(XElement xml, RunnerConfig config)
         {
-            var scriptElementsSection = xml.Element(ConfigNodes.ScriptElements);
+            var scriptElementsSection = xml.Element(ConfigNodes.ScriptInserts);
             if (scriptElementsSection is null)
             {
                 return;
             }
 
-            foreach (var element in scriptElementsSection.Elements(ConfigNodes.ScriptElement))
+            foreach (var element in scriptElementsSection.Elements(ConfigNodes.ScriptInsert))
             {
                 var name = GetNodeName(element);
-                if (config.ScriptElements.ContainsKey(name))
+                if (config.ScriptInserts.ContainsKey(name))
                 {
                     throw new Exception($"Скриптовая вставка {name} уже определена");
                 }
@@ -113,7 +113,7 @@ namespace RunnerCore.Parser
                     throw new Exception($"Скриптовая вставка {name} пуста");
                 }
 
-                config.ScriptElements.Add(name, scriptLines);
+                config.ScriptInserts.Add(name, scriptLines);
             }
         }
 
@@ -212,7 +212,7 @@ namespace RunnerCore.Parser
 
             if (scriptLines.Count < 1)
             {
-                throw new Exception($"В скрипте {scriptName} не содержится исполняемого кода. Добавьте код или дочернюю секцию {ConfigNodes.ScriptText} или {ConfigNodes.ScriptElement}.");
+                throw new Exception($"В скрипте {scriptName} не содержится исполняемого кода. Добавьте код или дочернюю секцию {ConfigNodes.ScriptText} или {ConfigNodes.ScriptInsert}.");
             }
 
             var scriptEnvironment = MergeEnvironments(xml, environment, config);
@@ -239,14 +239,14 @@ namespace RunnerCore.Parser
 
                 return nodeLines;
             }
-            else if (xml.Name == ConfigNodes.ScriptElement)
+            else if (xml.Name == ConfigNodes.ScriptInsert)
             {
                 var insertName = GetNodeName(xml);
-                if (!config.ScriptElements.ContainsKey(insertName))
+                if (!config.ScriptInserts.ContainsKey(insertName))
                 {
                     throw new Exception($"Скриптовая вставка {insertName} не найдена");
                 }
-                var nodeLines = config.ScriptElements[insertName];
+                var nodeLines = config.ScriptInserts[insertName];
                 return nodeLines;
             }
             else
