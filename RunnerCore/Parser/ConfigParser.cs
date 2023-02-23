@@ -188,23 +188,31 @@ namespace RunnerCore.Parser
             var scriptName = GetNodeName(xml);
 
             var scriptLines = new List<string>();
-            foreach (var innerNode in xml.Elements())
+            if (xml.HasElements)
             {
-                var sectionLines = ParseScriptInnerNodes(innerNode, scriptName, config);
-                var sectionEnvironment = MergeEnvironments(innerNode, null, config);
-                if (sectionEnvironment != null)
+                foreach (var innerNode in xml.Elements())
                 {
-                    sectionLines = sectionEnvironment.BeforeLines
-                        .Concat(sectionLines)
-                        .Concat(sectionEnvironment.AfterLines)
-                        .ToArray();
+                    var sectionLines = ParseScriptInnerNodes(innerNode, scriptName, config);
+                    var sectionEnvironment = MergeEnvironments(innerNode, null, config);
+                    if (sectionEnvironment != null)
+                    {
+                        sectionLines = sectionEnvironment.BeforeLines
+                            .Concat(sectionLines)
+                            .Concat(sectionEnvironment.AfterLines)
+                            .ToArray();
+                    }
+                    scriptLines.AddRange(sectionLines);
                 }
+            }
+            else
+            {
+                var sectionLines = ParseCode(xml.Value);
                 scriptLines.AddRange(sectionLines);
             }
 
             if (scriptLines.Count < 1)
             {
-                throw new Exception($"В скрипте {scriptName} не содержится исполняемого кода. Добавьте дочернюю секцию {ConfigNodes.ScriptText} или {ConfigNodes.ScriptElement}");
+                throw new Exception($"В скрипте {scriptName} не содержится исполняемого кода. Добавьте код или дочернюю секцию {ConfigNodes.ScriptText} или {ConfigNodes.ScriptElement}.");
             }
 
             var scriptEnvironment = MergeEnvironments(xml, environment, config);
@@ -259,10 +267,10 @@ namespace RunnerCore.Parser
 
         private static IReadOnlyList<string> ParseCode(string code)
         {
-            var lines = code.Split('\n')
+            var lines = code?.Split('\n')
                 .Select(value => value.Trim())
                 .Where(value => !string.IsNullOrEmpty(value) && value.Length > 0)
-                .ToArray();
+                .ToArray() ?? Array.Empty<string>();
             return lines;
         }
     }
