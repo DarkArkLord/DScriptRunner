@@ -33,15 +33,15 @@
   - `Environment`  - отвечает за настройку конкретной среды (дожна быть хотя бы одна вложенная секция, описывающая среду):
     - `Before` - **не обязательный**, часть, которая будет добавлена в начало использующего среду скрипта _(например, глобальные переменные; при отсутствии ничего не добавляется)_;
     - `After` - **не обязательный**, часть, которая будет добавлена в конец использующего среду скрипта _(например, пауза после исполнения; при отсутствии ничего не добавляется)_;
-- `ScriptElements` - **не обязательный**, отвечает за настройку скриптовых вставок:
-  - `ScriptElement` - код, который будет добавлен в скрипт _(например, глобальные переменные)_;
+- `ScriptInserts` - **не обязательный**, отвечает за настройку скриптовых вставок:
+  - `ScriptInsert` - код, который будет добавлен в скрипт _(например, глобальные переменные)_;
 - `Scripts` - **обязательный**, отвечает за пользовательские скрипты:
   - `Group` - служит для группировки скриптов в подменю для удобства восприятия;
-  - `Script` - кнопка запуска пользовательского скрипта (должен содержать код PowerShell или хотя бы один вложенный тег `ScriptText` или `ScriptElement`);
+  - `Script` - кнопка запуска пользовательского скрипта (должен содержать код PowerShell или хотя бы один вложенный тег `ScriptText` или `ScriptInsert`);
     - `ScriptText` - **не обязательный**, непосредственно содержит пользовательский код скрипта PowerShell;
-    - `ScriptElement` - **не обязательный**, вставка описанного ранее скрипта PowerShell;
+    - `ScriptInsert` - **не обязательный**, вставка описанного ранее скрипта PowerShell;
 
-Теги `Script`, `Group`, `ScriptElement` и `Environment` **должны** иметь атрибут `name` - название скрипта или группы в контекстном меню, вставки или среды. 
+Теги `Script`, `Group`, `ScriptInsert` и `Environment` **должны** иметь атрибут `name` - название скрипта или группы в контекстном меню, вставки или среды. 
 Теги в секции `Scripts` могут иметь атрибут `env` - название используемой среды.
 
 # Пример конфигурации
@@ -79,17 +79,17 @@
         </Environment>
     </Environments>
 
-    <ScriptElements>
-        <ScriptElement name="start-text">
+    <ScriptInserts>
+        <ScriptInsert name="start-text">
             Write-Host "START"
-        </ScriptElement>
-        <ScriptElement name="end-text">
+        </ScriptInsert>
+        <ScriptInsert name="end-text">
             Write-Host "END"
-        </ScriptElement>
-        <ScriptElement name="pause-after-end">
+        </ScriptInsert>
+        <ScriptInsert name="pause-after-end">
             pause
-        </ScriptElement>
-    </ScriptElements>
+        </ScriptInsert>
+    </ScriptInserts>
 
     <Scripts>
         <Group name="Test-Group">
@@ -129,11 +129,11 @@
         </Script>
 
         <Script name="Test-Inserts">
-            <ScriptElement name="start-text" />
+            <ScriptInsert name="start-text" />
             <ScriptText>
                 Write-Host "TEST Inserts"
             </ScriptText>
-            <ScriptElement name="end-text" />
+            <ScriptInsert name="end-text" />
             <ScriptText>
                 pause
             </ScriptText>
@@ -158,7 +158,7 @@
             <ScriptText env="test-text">
                 Write-Host "TEST Environments"
             </ScriptText>
-            <ScriptElement name="end-text" env="test-text" />
+            <ScriptInsert name="end-text" env="test-text" />
         </Script>
     </Scripts>
 </Config>
