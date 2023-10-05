@@ -27,16 +27,24 @@ namespace RunnerCore
 
         public void Execute(object sender, EventArgs e)
         {
+            // Определение имени для создания файла со скриптом
             var fileIndex = GetFileIndex();
             var fileName = GetFileName(fileIndex);
+
+            // Создание файла со скриптом
             var path = Path.Combine(Directory.GetCurrentDirectory(), fileName);
             File.WriteAllLines(path, currentScript.ScriptLines);
+
+            // Запуск скрипта из созданного файла
             var process = Process.Start("powershell", path);
             process.WaitForExit();
+
+            // Удаление файла после использования
             File.Delete(path);
             FreeFileIndex(fileIndex);
         }
 
+        // Поиска неиспользуемого файла для записи скрипта 
         private int GetFileIndex()
         {
             lock (usedFiles)

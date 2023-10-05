@@ -9,6 +9,7 @@ namespace RunnerCore.Parser
 {
     public static class ConfigParser
     {
+        // Считывание xml-документа из файла
         public static XDocument ReadXml(string path)
         {
             var file = File.ReadAllText(path);
@@ -16,6 +17,7 @@ namespace RunnerCore.Parser
             return xDocument;
         }
 
+        // Парсинг конфигурации их xml-документа
         public static RunnerConfig ParseXml(XDocument xml)
         {
             var config = xml.Element(ConfigNodes.Main);
@@ -30,7 +32,7 @@ namespace RunnerCore.Parser
             result.HelloMessage = helloMessage.Trim();
 
             ParseEnvironmentsList(config, result);
-            ParseScriptElements(config, result);
+            ParseScriptInserts(config, result);
 
             var scriptSection = config.Element(ConfigNodes.Scripts);
             if (scriptSection is null)
@@ -43,6 +45,7 @@ namespace RunnerCore.Parser
             return result;
         }
 
+        // Парсинг списка сред
         private static void ParseEnvironmentsList(XElement xml, RunnerConfig config)
         {
             var environmentsSection = xml.Element(ConfigNodes.Environments);
@@ -59,21 +62,8 @@ namespace RunnerCore.Parser
                     throw new Exception($"Среда {name} уже определена");
                 }
 
-                var beforeNode = element.Element(ConfigNodes.EnvironmentBefore);
-                var beforeText = beforeNode?.Value ?? string.Empty;
-                var beforeLines = ParseCode(beforeText);
-                if (beforeNode != null && beforeLines.Count < 1)
-                {
-                    throw new Exception($"В среде {name} определена пустая секция {ConfigNodes.EnvironmentBefore}");
-                }
-
-                var afterNode = element.Element(ConfigNodes.EnvironmentAfter);
-                var afterText = afterNode?.Value ?? string.Empty;
-                var afterLines = ParseCode(afterText);
-                if (afterNode != null && afterLines.Count < 1)
-                {
-                    throw new Exception($"В среде {name} определена пустая секция {ConfigNodes.EnvironmentAfter}");
-                }
+                var beforeLines = ParseEnvironmentSection(element, ConfigNodes.EnvironmentBefore, name);
+                var afterLines = ParseEnvironmentSection(element, ConfigNodes.EnvironmentAfter, name);
 
                 if (beforeLines.Count + afterLines.Count < 1)
                 {
@@ -90,7 +80,21 @@ namespace RunnerCore.Parser
             }
         }
 
-        private static void ParseScriptElements(XElement xml, RunnerConfig config)
+        // Парсинг секции среды (перед или после)
+        private static IReadOnlyList<string> ParseEnvironmentSection(XElement xml, string section, string envName)
+        {
+            var sectionNode = xml.Element(section);
+            var sectionText = sectionNode?.Value ?? string.Empty;
+            var sectionLines = ParseCode(sectionText);
+            if (sectionNode != null || sectionLines.Count < 1)
+            {
+                throw new Exception($"В среде {envName} определена пустая секция {section}");
+            }
+            return sectionLines;
+        }
+
+        // Парсинг скриптовых вставок
+        private static void ParseScriptInserts(XElement xml, RunnerConfig config)
         {
             var scriptElementsSection = xml.Element(ConfigNodes.ScriptInserts);
             if (scriptElementsSection is null)
@@ -117,6 +121,7 @@ namespace RunnerCore.Parser
             }
         }
 
+        // Парсинг секции скриптов
         private static IReadOnlyList<ScriptInfo> ParseScriptSection(XElement xml, RunnerConfig config, RunnerEnvironment environment = null)
         {
             var result = new List<ScriptInfo>();
@@ -150,6 +155,7 @@ namespace RunnerCore.Parser
             return result;
         }
 
+        // Объединение нескольких сред
         private static RunnerEnvironment MergeEnvironments(XElement xml, RunnerEnvironment current, RunnerConfig config)
         {
             var name = xml.Attribute(ConfigNodes.AttributeEnvironment)?.Value;
@@ -183,11 +189,14 @@ namespace RunnerCore.Parser
             return result;
         }
 
+        // Парсинг скрипта
         private static ScriptLines ParseScript(XElement xml, RunnerEnvironment environment, RunnerConfig config)
         {
             var scriptName = GetNodeName(xml);
 
             var scriptLines = new List<string>();
+            // Если в секции скрипта есть вложенные элементы - парсим скрипт как набор вставок
+            // Иначе - как полнотекстовый скрипт
             if (xml.HasElements)
             {
                 foreach (var innerNode in xml.Elements())
@@ -226,6 +235,7 @@ namespace RunnerCore.Parser
             return scriptInfo;
         }
 
+        // Парсинг дочерних секций скрипта
         private static IReadOnlyList<string> ParseScriptInnerNodes(XElement xml, string scriptName, RunnerConfig config)
         {
             if (xml.Name == ConfigNodes.ScriptText)
@@ -255,6 +265,7 @@ namespace RunnerCore.Parser
             }
         }
 
+        // Считывание имени xml-секции
         private static string GetNodeName(XElement xml)
         {
             var nodeName = xml.Attribute(ConfigNodes.AttributeName)?.Value;
@@ -265,6 +276,7 @@ namespace RunnerCore.Parser
             return nodeName;
         }
 
+        // Разбиение кода на список строк
         private static IReadOnlyList<string> ParseCode(string code)
         {
             var lines = code?.Split('\n')
