@@ -59,21 +59,8 @@ namespace RunnerCore.Parser
                     throw new Exception($"Среда {name} уже определена");
                 }
 
-                var beforeNode = element.Element(ConfigNodes.EnvironmentBefore);
-                var beforeText = beforeNode?.Value ?? string.Empty;
-                var beforeLines = ParseCode(beforeText);
-                if (beforeNode != null && beforeLines.Count < 1)
-                {
-                    throw new Exception($"В среде {name} определена пустая секция {ConfigNodes.EnvironmentBefore}");
-                }
-
-                var afterNode = element.Element(ConfigNodes.EnvironmentAfter);
-                var afterText = afterNode?.Value ?? string.Empty;
-                var afterLines = ParseCode(afterText);
-                if (afterNode != null && afterLines.Count < 1)
-                {
-                    throw new Exception($"В среде {name} определена пустая секция {ConfigNodes.EnvironmentAfter}");
-                }
+                var beforeLines = ParseEnvironmentSection(element, ConfigNodes.EnvironmentBefore, name);
+                var afterLines = ParseEnvironmentSection(element, ConfigNodes.EnvironmentAfter, name);
 
                 if (beforeLines.Count + afterLines.Count < 1)
                 {
@@ -88,6 +75,18 @@ namespace RunnerCore.Parser
 
                 config.Environments.Add(name, env);
             }
+        }
+
+        private static IReadOnlyList<string> ParseEnvironmentSection(XElement xml, string section, string envName)
+        {
+            var sectionNode = xml.Element(section);
+            var sectionText = sectionNode?.Value ?? string.Empty;
+            var sectionLines = ParseCode(sectionText);
+            if (sectionNode != null || sectionLines.Count < 1)
+            {
+                throw new Exception($"В среде {envName} определена пустая секция {section}");
+            }
+            return sectionLines;
         }
 
         private static void ParseScriptElements(XElement xml, RunnerConfig config)
