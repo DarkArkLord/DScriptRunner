@@ -9,6 +9,9 @@ using System.Windows.Forms;
 
 namespace DScriptRunner
 {
+    /// <summary>
+    /// Основная форма приложения (значек в трее)
+    /// </summary>
     class RunnerForm : ApplicationContext
     {
         private readonly NotifyIcon appIcon;

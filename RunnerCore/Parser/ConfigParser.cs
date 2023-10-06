@@ -9,7 +9,11 @@ namespace RunnerCore.Parser
 {
     public static class ConfigParser
     {
-        // Считывание xml-документа из файла
+        /// <summary>
+        /// Считывание xml-документа из файла
+        /// </summary>
+        /// <param name="path">Путь к файлу</param>
+        /// <returns>Считанный xml-документ</returns>
         public static XDocument ReadXml(string path)
         {
             var file = File.ReadAllText(path);
@@ -17,7 +21,12 @@ namespace RunnerCore.Parser
             return xDocument;
         }
 
-        // Парсинг конфигурации их xml-документа
+        /// <summary>
+        /// Парсинг конфигурации из xml-документа
+        /// </summary>
+        /// <param name="xml">xml-документ</param>
+        /// <returns>Конфигурация раннера</returns>
+        /// <exception cref="Exception">Ошибка при парсинге</exception>
         public static RunnerConfig ParseXml(XDocument xml)
         {
             var config = xml.Element(ConfigNodes.Main);

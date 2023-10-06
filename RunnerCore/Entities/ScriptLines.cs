@@ -2,6 +2,9 @@
 
 namespace RunnerCore.Entities
 {
+    /// <summary>
+    /// Конфигурация скрипта
+    /// </summary>
     public class ScriptLines : ScriptInfo
     {
         public override bool IsScript => true;

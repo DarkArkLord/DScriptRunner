@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace RunnerCore.Entities
 {
+    /// <summary>
+    /// Базовый класс конфигурации скрипта
+    /// </summary>
     public abstract class ScriptInfo
     {
         public abstract bool IsScript { get; }
