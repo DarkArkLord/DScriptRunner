@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace RunnerCore
 {
+    /// <summary>
+    /// Исполнитель скриптов
+    /// </summary>
     public class ScriptExecutor
     {
         // Список используемых файлов по индексам
