@@ -30,6 +30,7 @@ namespace RunnerCore.Parser
         public static RunnerConfig ParseXml(XDocument xml)
         {
             var config = xml.Element(ConfigNodes.Main);
+            // Если нет корневой секции - нечего парсить
             if (config is null)
             {
                 throw new Exception($"Секция {ConfigNodes.Main} не обнаружена");
@@ -65,28 +66,34 @@ namespace RunnerCore.Parser
 
             foreach (var element in environmentsSection.Elements(ConfigNodes.Environment))
             {
-                var name = GetNodeName(element);
-                if (config.Environments.ContainsKey(name))
-                {
-                    throw new Exception($"Среда {name} уже определена");
-                }
-
-                var beforeLines = ParseEnvironmentSection(element, ConfigNodes.EnvironmentBefore, name);
-                var afterLines = ParseEnvironmentSection(element, ConfigNodes.EnvironmentAfter, name);
-
-                if (beforeLines.Count + afterLines.Count < 1)
-                {
-                    throw new Exception($"Среда {name} пуста. Добавьте дочернюю секцию {ConfigNodes.EnvironmentBefore} или {ConfigNodes.EnvironmentAfter}");
-                }
-
-                var env = new RunnerEnvironment
-                {
-                    BeforeLines = beforeLines,
-                    AfterLines = afterLines,
-                };
-
-                config.Environments.Add(name, env);
+                ParseEnvironment(element, config);
             }
+        }
+
+        // Парсинг среды
+        private static void ParseEnvironment(XElement xml, RunnerConfig config)
+        {
+            var name = GetNodeName(xml);
+            if (config.Environments.ContainsKey(name))
+            {
+                throw new Exception($"Среда {name} уже определена");
+            }
+
+            var beforeLines = ParseEnvironmentSection(xml, ConfigNodes.EnvironmentBefore, name);
+            var afterLines = ParseEnvironmentSection(xml, ConfigNodes.EnvironmentAfter, name);
+
+            if (beforeLines.Count + afterLines.Count < 1)
+            {
+                throw new Exception($"Среда {name} пуста. Добавьте дочернюю секцию {ConfigNodes.EnvironmentBefore} или {ConfigNodes.EnvironmentAfter}");
+            }
+
+            var env = new RunnerEnvironment
+            {
+                BeforeLines = beforeLines,
+                AfterLines = afterLines,
+            };
+
+            config.Environments.Add(name, env);
         }
 
         // Парсинг секции среды (перед или после)
@@ -113,21 +120,27 @@ namespace RunnerCore.Parser
 
             foreach (var element in scriptElementsSection.Elements(ConfigNodes.ScriptInsert))
             {
-                var name = GetNodeName(element);
-                if (config.ScriptInserts.ContainsKey(name))
-                {
-                    throw new Exception($"Скриптовая вставка {name} уже определена");
-                }
-
-                var scriptText = element.Value ?? string.Empty;
-                var scriptLines = ParseCode(scriptText);
-                if (scriptLines.Count < 1)
-                {
-                    throw new Exception($"Скриптовая вставка {name} пуста");
-                }
-
-                config.ScriptInserts.Add(name, scriptLines);
+                ParseScriptInsert(element, config);
             }
+        }
+
+        // Парсинг скриптовой вставки
+        private static void ParseScriptInsert(XElement xml, RunnerConfig config)
+        {
+            var name = GetNodeName(xml);
+            if (config.ScriptInserts.ContainsKey(name))
+            {
+                throw new Exception($"Скриптовая вставка {name} уже определена");
+            }
+
+            var scriptText = xml.Value ?? string.Empty;
+            var scriptLines = ParseCode(scriptText);
+            if (scriptLines.Count < 1)
+            {
+                throw new Exception($"Скриптовая вставка {name} пуста");
+            }
+
+            config.ScriptInserts.Add(name, scriptLines);
         }
 
         // Парсинг секции скриптов
