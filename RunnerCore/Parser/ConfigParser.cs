@@ -102,7 +102,7 @@ namespace RunnerCore.Parser
             var sectionNode = xml.Element(section);
             var sectionText = sectionNode?.Value ?? string.Empty;
             var sectionLines = ParseCode(sectionText);
-            if (sectionNode != null || sectionLines.Count < 1)
+            if (sectionNode != null && sectionLines.Count < 1)
             {
                 throw new Exception($"В среде {envName} определена пустая секция {section}");
             }
