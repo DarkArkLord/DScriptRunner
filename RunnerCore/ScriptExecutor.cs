@@ -9,15 +9,15 @@ namespace RunnerCore
 {
     public class ScriptExecutor
     {
+        // Список используемых файлов по индексам
         private static readonly List<bool> usedFiles = new List<bool>();
 
+        // Текущий исполняемый скрипт
         private readonly ScriptLines currentScript;
-        private readonly RunnerConfig config;
 
-        public ScriptExecutor(ScriptLines currentScript, RunnerConfig config)
+        public ScriptExecutor(ScriptLines currentScript)
         {
             this.currentScript = currentScript;
-            this.config = config;
         }
 
         public void ExecuteAsTask(object sender, EventArgs e)

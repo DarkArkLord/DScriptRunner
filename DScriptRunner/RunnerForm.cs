@@ -30,6 +30,8 @@ namespace DScriptRunner
         private void LoadMenu()
         {
             var contextMenu = new ContextMenuStrip();
+
+            // Считывание конфигураии раннера (возможны ошибки)
             try
             {
                 var xml = ConfigParser.ReadXml(AppResources.ConfigFileName);
@@ -40,8 +42,12 @@ namespace DScriptRunner
             {
                 MessageBox.Show(e.Message, AppResources.LoadErrorCaption);
             }
+
+            // Подготовка основных элементов управления приложением
             ConfigureCommonMenuItems(contextMenu);
             appIcon.ContextMenuStrip = contextMenu;
+
+            // Вывод приветственного сообщения
             SayHello();
         }
 
@@ -49,10 +55,12 @@ namespace DScriptRunner
         {
             foreach (var info in config)
             {
+                // Если это скрипт - то он должен исполняться при нажатии
+                // Иначе это группа, которая должна содержать набор скриптов 
                 if (info.IsScript)
                 {
                     var item = items.Add(info.Title);
-                    var executor = new ScriptExecutor(info as ScriptLines, appConfig);
+                    var executor = new ScriptExecutor(info as ScriptLines);
                     item.Click += executor.ExecuteAsTask;
                 }
                 else
@@ -66,15 +74,19 @@ namespace DScriptRunner
 
         private void ConfigureCommonMenuItems(ContextMenuStrip menu)
         {
+            // Открытие файла конфигурации
             var configItem = menu.Items.Add(AppResources.ButtonConfig);
             configItem.Click += (object sender, EventArgs e) => OpenConfigFile();
 
+            // Перезагрузка меню
             var refreshItem = menu.Items.Add(AppResources.ButtonRefresh);
             refreshItem.Click += (object sender, EventArgs e) => LoadMenu();
 
+            // Информация о программе
             var infoItem = menu.Items.Add(AppResources.ButtonInfo);
             infoItem.Click += (object sender, EventArgs e) => Info();
 
+            // Выход
             var exitItem = menu.Items.Add(AppResources.ButtonExit);
             exitItem.Click += (object sender, EventArgs e) => Exit();
         }
@@ -103,14 +115,10 @@ namespace DScriptRunner
 
         private void SayHello()
         {
-            if (appConfig is null || string.IsNullOrEmpty(appConfig.HelloMessage))
-            {
-                return;
-            }
+            if (appConfig is null || string.IsNullOrEmpty(appConfig.HelloMessage)) return;
 
             var builder = new ToastContentBuilder();
-            builder.AddText(appConfig.HelloMessage)
-                .Show();
+            builder.AddText(appConfig.HelloMessage).Show();
         }
     }
 }
