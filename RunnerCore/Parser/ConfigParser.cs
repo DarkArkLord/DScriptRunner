@@ -38,12 +38,14 @@ namespace RunnerCore.Parser
 
             var result = new RunnerConfig();
 
+            // Установки приветственного сообщения
             var helloMessage = config.Element(ConfigNodes.Hello)?.Value ?? string.Empty;
             result.HelloMessage = helloMessage.Trim();
 
             ParseEnvironmentsList(config, result);
             ParseScriptInserts(config, result);
 
+            // Если нет секции скриптов, значит нет и скриптов
             var scriptSection = config.Element(ConfigNodes.Scripts);
             if (scriptSection is null)
             {
@@ -59,10 +61,8 @@ namespace RunnerCore.Parser
         private static void ParseEnvironmentsList(XElement xml, RunnerConfig config)
         {
             var environmentsSection = xml.Element(ConfigNodes.Environments);
-            if (environmentsSection is null)
-            {
-                return;
-            }
+            // Нет секции - нет сред
+            if (environmentsSection is null) return;
 
             foreach (var element in environmentsSection.Elements(ConfigNodes.Environment))
             {
@@ -113,10 +113,8 @@ namespace RunnerCore.Parser
         private static void ParseScriptInserts(XElement xml, RunnerConfig config)
         {
             var scriptElementsSection = xml.Element(ConfigNodes.ScriptInserts);
-            if (scriptElementsSection is null)
-            {
-                return;
-            }
+            // Нет секции - нет вставок
+            if (scriptElementsSection is null) return;
 
             foreach (var element in scriptElementsSection.Elements(ConfigNodes.ScriptInsert))
             {
@@ -185,10 +183,7 @@ namespace RunnerCore.Parser
         private static RunnerEnvironment MergeEnvironments(XElement xml, RunnerEnvironment current, RunnerConfig config)
         {
             var name = xml.Attribute(ConfigNodes.AttributeEnvironment)?.Value;
-            if (name is null)
-            {
-                return current;
-            }
+            if (name is null) return current;
 
             if (!config.Environments.ContainsKey(name))
             {
@@ -197,10 +192,7 @@ namespace RunnerCore.Parser
 
             var env = config.Environments[name];
 
-            if (current is null)
-            {
-                return env;
-            }
+            if (current is null) return env;
 
             var result = new RunnerEnvironment
             {
@@ -250,6 +242,7 @@ namespace RunnerCore.Parser
                 throw new Exception($"В скрипте {scriptName} не содержится исполняемого кода. Добавьте код или дочернюю секцию {ConfigNodes.ScriptText} или {ConfigNodes.ScriptInsert}.");
             }
 
+            // Объединение сред
             var scriptEnvironment = MergeEnvironments(xml, environment, config);
             if (scriptEnvironment != null)
             {
