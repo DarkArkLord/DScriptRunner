@@ -3,6 +3,9 @@ using System.Collections.Generic;
 
 namespace RunnerCore.Entities
 {
+    /// <summary>
+    /// Полная конфигурация скриптраннера
+    /// </summary>
     public class RunnerConfig
     {
         public string HelloMessage { get; set; } = string.Empty;
@@ -11,6 +14,9 @@ namespace RunnerCore.Entities
         public IReadOnlyList<ScriptInfo> Content { get; set; } = Array.Empty<ScriptInfo>();
     }
 
+    /// <summary>
+    /// Конфигурация среды для скриптов
+    /// </summary>
     public class RunnerEnvironment
     {
         public IReadOnlyList<string> BeforeLines { get; set; }

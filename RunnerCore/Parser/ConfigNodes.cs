@@ -1,6 +1,8 @@
 ﻿namespace RunnerCore.Parser
 {
-    // Список узлов конфигурации скрипта
+    /// <summary>
+    /// Список узлов конфигурации скрипта
+    /// </summary>
     public static class ConfigNodes
     {
         // Корневой узел

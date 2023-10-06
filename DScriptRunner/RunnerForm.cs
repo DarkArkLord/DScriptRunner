@@ -9,6 +9,9 @@ using System.Windows.Forms;
 
 namespace DScriptRunner
 {
+    /// <summary>
+    /// Основная форма приложения (значек в трее)
+    /// </summary>
     class RunnerForm : ApplicationContext
     {
         private readonly NotifyIcon appIcon;
@@ -88,7 +91,7 @@ namespace DScriptRunner
                        "Разработчик: Алексей Петров aka DarkNessLord\n" +
                        "https://github.com/ShadowOfFallenLord/DScriptRunner \n" +
                        "2022 год \n" +
-                       "Версия 1.6.1";
+                       "Версия 1.6.2";
             MessageBox.Show(text, "О программе");
         }
 
