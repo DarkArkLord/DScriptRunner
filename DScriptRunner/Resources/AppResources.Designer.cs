@@ -125,6 +125,19 @@ namespace DScriptRunner.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на О программе DScriptRunner
+        ///Разработчик: Алексей Петров aka DarkArkLord
+        ///https://github.com/DarkArkLord/DScriptRunner
+        ///2022-2023 год
+        ///Версия 1.6.4.
+        /// </summary>
+        internal static string InfoMessage {
+            get {
+                return ResourceManager.GetString("InfoMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на DScriptRunner: Ошибка при загрузке конфигурации.
         /// </summary>
         internal static string LoadErrorCaption {

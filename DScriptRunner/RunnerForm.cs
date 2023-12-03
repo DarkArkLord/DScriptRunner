@@ -96,12 +96,7 @@ namespace DScriptRunner
 
         private void Info()
         {
-            var text = "О программе DScriptRunner\n" +
-                       "Разработчик: Алексей Петров aka DarkNessLord\n" +
-                       "https://github.com/ShadowOfFallenLord/DScriptRunner \n" +
-                       "2022 год \n" +
-                       "Версия 1.6.3";
-            MessageBox.Show(text, "О программе");
+            MessageBox.Show(AppResources.InfoMessage, "О программе");
         }
 
         private void Exit()
