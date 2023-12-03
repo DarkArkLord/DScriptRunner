@@ -1,4 +1,4 @@
-﻿using Microsoft.Toolkit.Uwp.Notifications;
+﻿using DScriptRunner.Resources;
 using RunnerCore;
 using RunnerCore.Entities;
 using RunnerCore.Parser;
@@ -99,12 +99,7 @@ namespace DScriptRunner
 
         private void Info()
         {
-            var text = "О программе DScriptRunner\n" +
-                       "Разработчик: Алексей Петров aka DarkNessLord\n" +
-                       "https://github.com/ShadowOfFallenLord/DScriptRunner \n" +
-                       "2022 год \n" +
-                       "Версия 1.6.3";
-            MessageBox.Show(text, "О программе");
+            MessageBox.Show(AppResources.InfoMessage, AppResources.InfoCaption);
         }
 
         private void Exit()
@@ -117,8 +112,11 @@ namespace DScriptRunner
         {
             if (appConfig is null || string.IsNullOrEmpty(appConfig.HelloMessage)) return;
 
-            var builder = new ToastContentBuilder();
-            builder.AddText(appConfig.HelloMessage).Show();
+            //using Microsoft.Toolkit.Uwp.Notifications;
+            //var builder = new ToastContentBuilder();
+            //builder.AddText(appConfig.HelloMessage).Show();
+
+            MessageBox.Show(appConfig.HelloMessage, AppResources.HelloCaption);
         }
     }
 }

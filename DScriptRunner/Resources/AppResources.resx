@@ -119,7 +119,7 @@
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
   <data name="AppIcon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>Resources\AppIcon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+    <value>AppIcon.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="ButtonConfig" xml:space="preserve">
     <value>Конфигурация</value>
@@ -135,6 +135,19 @@
   </data>
   <data name="ConfigFileName" xml:space="preserve">
     <value>ScriptsConfig.xml</value>
+  </data>
+  <data name="HelloCaption" xml:space="preserve">
+    <value>DScriptRunner: Запущен</value>
+  </data>
+  <data name="InfoCaption" xml:space="preserve">
+    <value>О программе</value>
+  </data>
+  <data name="InfoMessage" xml:space="preserve">
+    <value>О программе DScriptRunner
+Разработчик: Алексей Петров aka DarkArkLord
+https://github.com/DarkArkLord/DScriptRunner
+2022-2023 год
+Версия 2.0.0</value>
   </data>
   <data name="LoadErrorCaption" xml:space="preserve">
     <value>DScriptRunner: Ошибка при загрузке конфигурации</value>
