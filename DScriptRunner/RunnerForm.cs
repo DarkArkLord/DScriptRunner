@@ -99,7 +99,7 @@ namespace DScriptRunner
 
         private void Info()
         {
-            MessageBox.Show(AppResources.InfoMessage, "О программе");
+            MessageBox.Show(AppResources.InfoMessage, AppResources.InfoCaption);
         }
 
         private void Exit()

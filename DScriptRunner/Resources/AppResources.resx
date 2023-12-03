@@ -139,6 +139,9 @@
   <data name="HelloCaption" xml:space="preserve">
     <value>DScriptRunner: Запущен</value>
   </data>
+  <data name="InfoCaption" xml:space="preserve">
+    <value>О программе</value>
+  </data>
   <data name="InfoMessage" xml:space="preserve">
     <value>О программе DScriptRunner
 Разработчик: Алексей Петров aka DarkArkLord

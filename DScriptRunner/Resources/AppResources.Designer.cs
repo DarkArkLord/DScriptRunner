@@ -125,6 +125,15 @@ namespace DScriptRunner.Resources {
         }
         
         /// <summary>
+        ///   Ищет локализованную строку, похожую на О программе.
+        /// </summary>
+        internal static string InfoCaption {
+            get {
+                return ResourceManager.GetString("InfoCaption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Ищет локализованную строку, похожую на О программе DScriptRunner
         ///Разработчик: Алексей Петров aka DarkArkLord
         ///https://github.com/DarkArkLord/DScriptRunner
