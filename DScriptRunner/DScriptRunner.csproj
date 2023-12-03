@@ -6,9 +6,9 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>disable</ImplicitUsings>
-    <Company>DarkArkLord</Company>
     <StartupObject>DScriptRunner.Program</StartupObject>
     <ApplicationIcon>Resources\AppIcon.ico</ApplicationIcon>
+    <Authors>DarkArkLord</Authors>
   </PropertyGroup>
 
   <ItemGroup>
