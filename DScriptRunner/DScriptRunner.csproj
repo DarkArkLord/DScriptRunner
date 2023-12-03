@@ -6,7 +6,14 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Company>DarkArkLord</Company>
+    <StartupObject>DScriptRunner.Program</StartupObject>
+    <ApplicationIcon>Resources\AppIcon.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\AppIcon.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\RunnerCore\RunnerCore.csproj" />
