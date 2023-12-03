@@ -1,6 +1,9 @@
+using System;
+using System.Windows.Forms;
+
 namespace DScriptRunner
 {
-    internal static class Program
+    static class Program
     {
         /// <summary>
         ///  The main entry point for the application.

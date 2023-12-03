@@ -2,7 +2,10 @@
 using RunnerCore;
 using RunnerCore.Entities;
 using RunnerCore.Parser;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Windows.Forms;
 
 namespace DScriptRunner
 {
