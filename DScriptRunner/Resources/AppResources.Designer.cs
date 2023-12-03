@@ -129,7 +129,7 @@ namespace DScriptRunner.Resources {
         ///Разработчик: Алексей Петров aka DarkArkLord
         ///https://github.com/DarkArkLord/DScriptRunner
         ///2022-2023 год
-        ///Версия 1.6.4.
+        ///Версия 2.0.0.
         /// </summary>
         internal static string InfoMessage {
             get {

@@ -144,7 +144,7 @@
 Разработчик: Алексей Петров aka DarkArkLord
 https://github.com/DarkArkLord/DScriptRunner
 2022-2023 год
-Версия 1.6.4</value>
+Версия 2.0.0</value>
   </data>
   <data name="LoadErrorCaption" xml:space="preserve">
     <value>DScriptRunner: Ошибка при загрузке конфигурации</value>
