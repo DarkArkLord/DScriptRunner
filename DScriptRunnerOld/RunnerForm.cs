@@ -1,8 +1,11 @@
-﻿using DScriptRunner.Resources;
+﻿using Microsoft.Toolkit.Uwp.Notifications;
 using RunnerCore;
 using RunnerCore.Entities;
 using RunnerCore.Parser;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Windows.Forms;
 
 namespace DScriptRunner
 {
@@ -18,7 +21,7 @@ namespace DScriptRunner
         {
             appIcon = new NotifyIcon
             {
-                Icon = AppResources.AppIcon,
+                Icon = RunnerCore.Resources.ResourceManager.AppIcon,
                 Visible = true,
             };
             LoadMenu();
@@ -114,11 +117,8 @@ namespace DScriptRunner
         {
             if (appConfig is null || string.IsNullOrEmpty(appConfig.HelloMessage)) return;
 
-            //using Microsoft.Toolkit.Uwp.Notifications;
-            //var builder = new ToastContentBuilder();
-            //builder.AddText(appConfig.HelloMessage).Show();
-
-            MessageBox.Show(appConfig.HelloMessage, AppResources.HelloCaption);
+            var builder = new ToastContentBuilder();
+            builder.AddText(appConfig.HelloMessage).Show();
         }
     }
 }
